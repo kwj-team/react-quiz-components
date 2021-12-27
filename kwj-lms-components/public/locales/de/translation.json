@@ -1,0 +1,15 @@
+{
+  "quiz": {
+    "footer": {
+      "prevlabel": "Zuruck",
+      "nextlabel": "Weiter",
+      "submitlabel": "Senden"
+    },
+    "question": {
+      "requiredError": "Die Antwort ist erforderlich."
+    },
+    "quizEnd": {
+      "invisibleResult": "Vielen Dank, dass Sie am Quiz teilgenommen haben!"
+    }
+  }
+}
