@@ -2,12 +2,9 @@ type QuizData = {
   title: string;
   description: string;
   points: number;
-  isAnswerRequired?: boolean;
   showCorrectAnswers: boolean;
   showPoints: boolean;
   randomize: boolean;
-  text: string;
-  isCorrect: boolean;
 
   questions: QuestionComponentData[];
 };

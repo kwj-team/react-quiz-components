@@ -5,85 +5,94 @@ import { useTranslation } from 'react-i18next';
 
 export default {
     title: 'components/sections/quiz', component: QuizPage, decorators: [(Story) => {
-        const { i18n } = useTranslation();
+        // const { i18n } = useTranslation();
         console.log("Wykonał się kod dekoratora")
 
-        useEffect(() => {
-            i18n.changeLanguage("de")
-            console.log("Zmieniło język na Niemiecki")
+        // useEffect(() => {
+        //     // i18n.changeLanguage("de")
+        //     // console.log("Zmieniło język na Niemiecki")
 
-            return () => {
-                i18n.changeLanguage("en")
-                console.log("Zmieniło język na Angielski")
-            }
-        }, [])
+        //     return () => {
+        //         i18n.changeLanguage("en")
+        //         console.log("Zmieniło język na Angielski")
+        //     }
+        // }, [])
 
         return <Story />
     }]
 } as ComponentMeta<typeof QuizPage>
 
 const quizPageProps = {
-    showCorrectAnswers: false,
-    title: "Quiz sprawdzający wiedzę o KPI",
-    description: "Quiz dotyczy najważniejszych wskaźników efektywności w przedsiębiorstwie. Zaznacz prawidłowe odpowiedzi i sprawdź wynik testu.",
+    showCorrectAnswers: true,
+    title: "Quiz about KPI",
+    description: "The quiz deals with the most important performance indicators in the enterprise. Select correct answers and check the test result.",
     questions: [{
         __typename: "ComponentElementsQuestionMultipleAnswer",
         question: {
-            title: "Czy to jest prawda?",
-            description: "Zaznacz prawda/fałsz ",
+            title: "Is it true?",
+            description: "Select all correct answers",
             points: 1,
             isAnswerRequired: true
         },
         answers: [
             {
-                key: "true",
+                key: "1",
                 isCorrect: true,
-                text: "prawda"
+                text: "true answer"
             },
             {
-                key: "false",
+                key: "2",
                 isCorrect: false,
-                text: "fałsz"
+                text: "false answer"
+            }, {
+                key: "3",
+                isCorrect: false,
+                text: "false answer"
+            },
+            {
+                key: "4",
+                isCorrect: true,
+                text: "true answer"
             }
         ]
     }, {
         __typename: "ComponentElementsQuestionSingleAnswer",
         question: {
-            title: "Czy to jest prawda?",
-            description: "Zaznacz prawda/fałsz ",
+            title: "Which sentence is true?",
+            description: "Select the correct answer",
             points: 1,
             isAnswerRequired: true
         },
         answers: [
             {
-                key: "true1",
+                key: "5",
                 isCorrect: true,
-                text: "prawda"
+                text: "true answer"
             },
             {
-                key: "false1",
+                key: "6",
                 isCorrect: false,
-                text: "fałsz"
+                text: "false answer"
             }
         ]
     }, {
         __typename: "ComponentElementsQuestionSingleAnswer",
         question: {
-            title: "Czy to jest prawda?",
-            description: "Zaznacz prawda/fałsz ",
+            title: "Which sentence is true?",
+            description: "Select the correct answer",
             points: 1,
             isAnswerRequired: true
         },
         answers: [
             {
-                key: "true2",
+                key: "7",
                 isCorrect: true,
-                text: "prawda"
+                text: "true answer"
             },
             {
-                key: "false2",
+                key: "8",
                 isCorrect: false,
-                text: "fałsz"
+                text: "false answer"
             }
         ]
     }]
