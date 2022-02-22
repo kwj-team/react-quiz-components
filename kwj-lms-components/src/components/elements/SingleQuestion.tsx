@@ -9,6 +9,7 @@ interface SingleQuestionProps {
     userAnswer: string;
     onChange?: (change: { value: any, isFilled: boolean }) => void;
     showAnswers?: boolean;
+    index: number
 }
 
 function UseRadioGroup({ answers, userAnswer, showAnswers, onChange }:
@@ -67,10 +68,10 @@ function UseRadioGroup({ answers, userAnswer, showAnswers, onChange }:
 }
 
 
-const SingleQuestion = ({ question, userAnswer, showAnswers, onChange }: SingleQuestionProps) => {
+const SingleQuestion = ({ question, userAnswer, showAnswers, index, onChange }: SingleQuestionProps) => {
     return (
         <Box gap={0} display={"flex"} flexDirection={"column"}>
-            <Question question={question.question} />
+            <Question index={index} question={question.question} />
             <UseRadioGroup
                 answers={question.answers}
                 onChange={onChange}

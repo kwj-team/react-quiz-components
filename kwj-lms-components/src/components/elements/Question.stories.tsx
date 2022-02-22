@@ -11,4 +11,4 @@ const simpleQuestionProps = {
 const Template: ComponentStory<typeof Question> = (args) => <Question {...args} />
 
 export const SimpleQuestion = Template.bind({})
-SimpleQuestion.args = { question: simpleQuestionProps }
+SimpleQuestion.args = { question: simpleQuestionProps, index: 1 }

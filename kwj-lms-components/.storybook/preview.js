@@ -18,7 +18,7 @@ const theme = createTheme({
   typography: {
     questionTitle: {
       fontWeight: "bold",
-      fontSize: "1.5rem",
+      // fontSize: "1.5rem",
     },
   },
 });

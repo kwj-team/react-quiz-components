@@ -1,4 +1,4 @@
-import { Box, Alert, Stack } from '@mui/material'
+import { Box, Alert, Stack, Card, CardContent, } from '@mui/material'
 import { useState } from 'react';
 import MultipleQuestion from '../elements/MultipleQuestion';
 import { QuizFooter } from '../elements/QuizFooter';
@@ -9,32 +9,11 @@ import { QuizEnd } from '../elements/QuizEnd';
 
 type QuizPageData = Pick<QuizData,
     "title" | "description" | "showCorrectAnswers"
-    | "showPoints" | "randomize" | "questions" | "isAnswerRequired">
+    | "showPoints" | "randomize" | "questions">
 
 interface QuizProps {
     quiz: QuizPageData
 }
-
-// const QuizPageAllInOne = ({ quiz }: QuizProps) => {
-//     return (
-//         <Box gap={0} display={"flex"} flexDirection={"column"}>
-//             {quiz.Questions.map((question) => {
-//                 switch (question.__typename) {
-//                     case "ComponentElementsQuestionMultipleAnswer":
-//                         return <MultipleQuestion question={question} />
-//                     case "ComponentElementsQuestionSingleAnswer":
-//                         return <SingleQuestion question={question} />
-//                     default:
-//                         return null
-//                 }
-//             })}
-
-//             {/* <MultipleQuestion />
-//             <QuizFooter /> */}
-//         </Box>
-//     );
-// };
-
 
 
 const QuizPage = ({ quiz }: QuizProps) => {
@@ -74,38 +53,42 @@ const QuizPage = ({ quiz }: QuizProps) => {
         setError("")
     }
 
-    const component = question && getComponent(question, answers[step], setAnswer)
+    const component = question && getComponent(question, answers[step], step, setAnswer)
 
     return (
-        <Box gap={0} display={"flex"} flexDirection={"column"}>
-            {error &&
-                <Stack sx={{ mt: "10px", display: "flex", justifyContent: "flexEnd" }} spacing={2}>
-                    <Alert severity="error">{t(error)}</Alert>
-                </Stack>
-            }
-            {isResultStep && quiz.showCorrectAnswers && <QuizResult quiz={quiz} answers={answers} />}
-            {isResultStep && !quiz.showCorrectAnswers && <QuizEnd />}
-            {component}
+        <Card sx={{ maxWidth: 800, margin: "0 auto" }}>
+            <CardContent>
+                <Box gap={0} display={"flex"} justifyContent={"center"} flexDirection={"column"}>
+                    {error &&
+                        <Stack sx={{ marginBottom: 3, marginTop: 2, display: "flex", justifyContent: "flexEnd" }} spacing={2}>
+                            <Alert severity="error">{t(error)}</Alert>
+                        </Stack>
+                    }
+                    {isResultStep && quiz.showCorrectAnswers && <QuizResult quiz={quiz} answers={answers} />}
+                    {isResultStep && !quiz.showCorrectAnswers && <QuizEnd />}
+                    {component}
 
-            <QuizFooter
-                prevDisabled={step === 0 || isResultStep}
-                submitStep={isLastStep}
-                onNextClick={nextStep}
-                onPrevClick={prevStep}
-            />
+                    <QuizFooter
+                        prevDisabled={step === 0 || isResultStep}
+                        submitStep={isLastStep}
+                        onNextClick={nextStep}
+                        onPrevClick={prevStep}
+                    />
 
-        </Box>
+                </Box>
+            </CardContent>
+        </Card>
     );
 };
 
 export default QuizPage;
 
-function getComponent(question: QuestionComponentData, userAnswer: Answer | undefined, setAnswer: (answer: Answer) => void) {
+function getComponent(question: QuestionComponentData, userAnswer: Answer | undefined, index: number, setAnswer: (answer: Answer) => void) {
     switch (question.__typename) {
         case "ComponentElementsQuestionMultipleAnswer":
-            return <MultipleQuestion userAnswer={userAnswer && userAnswer.value} question={question} onChange={setAnswer} />
+            return <MultipleQuestion index={index} userAnswer={userAnswer && userAnswer.value} question={question} onChange={setAnswer} />
         case "ComponentElementsQuestionSingleAnswer":
-            return <SingleQuestion userAnswer={userAnswer && userAnswer.value} question={question} onChange={setAnswer} />
+            return <SingleQuestion index={index} userAnswer={userAnswer && userAnswer.value} question={question} onChange={setAnswer} />
         default:
             return null
     }

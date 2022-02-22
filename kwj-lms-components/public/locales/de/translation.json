@@ -10,6 +10,9 @@
     },
     "quizEnd": {
       "invisibleResult": "Vielen Dank, dass Sie am Quiz teilgenommen haben!"
+    },
+    "quizResult": {
+      "title": "Dein Quizergebnis"
     }
   }
 }

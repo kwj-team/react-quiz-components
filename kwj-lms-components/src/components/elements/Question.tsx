@@ -2,13 +2,14 @@ import { Box, Typography } from '@mui/material'
 
 interface QuestionProps {
   question: Pick<QuestionData, "title" | "description" | "points" | "isAnswerRequired">
+  index: number
 }
 
-const Question = ({ question }: QuestionProps) => {
+const Question = ({ question, index }: QuestionProps) => {
   return (
-    <Box gap={0} display={"flex"} flexDirection={"column"}>
-      <Typography variant="questionTitle" component="span">{question.title}</Typography>
-      <Typography variant="questionDescription">{question.description}</Typography>
+    <Box display={"flex"} flexDirection={"column"}>
+      <Typography marginBottom={2} variant="h6" fontWeight={"bold"} component="span">{index + 1}. {question.title}</Typography>
+      <Typography marginBottom={3} variant="questionDescription">{question.description}</Typography>
     </Box>
   );
 };

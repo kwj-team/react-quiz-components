@@ -1,4 +1,4 @@
-import { Box, Typography } from '@mui/material'
+import { Box, Card, CardContent, Typography } from '@mui/material'
 import Question from './Question';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -10,6 +10,7 @@ interface MultipleQuestionProps {
     onChange?: (change: { value: any, isFilled: boolean }) => void;
     showAnswers?: boolean;
     userAnswer: string[];
+    index: number
 }
 
 function CheckboxLabels({ answers, userAnswer, showAnswers, onChange }:
@@ -39,7 +40,7 @@ function CheckboxLabels({ answers, userAnswer, showAnswers, onChange }:
     }
 
     return (
-        <FormGroup>
+        <FormGroup >
             {answers.map((answer) => {
                 let color: "success" | "error" | undefined;
                 if (showAnswers) {
@@ -78,10 +79,12 @@ function CheckboxLabels({ answers, userAnswer, showAnswers, onChange }:
 }
 
 
-const MultipleQuestion = ({ question, userAnswer, showAnswers, onChange }: MultipleQuestionProps) => {
+const MultipleQuestion = ({ question, userAnswer, showAnswers, index, onChange }: MultipleQuestionProps) => {
     return (
+
         <Box gap={0} display={"flex"} flexDirection={"column"}>
-            <Question question={question.question} />
+
+            <Question index={index} question={question.question} />
             <CheckboxLabels
                 onChange={onChange}
                 answers={question.answers}
