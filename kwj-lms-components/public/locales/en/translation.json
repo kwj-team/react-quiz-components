@@ -1,9 +1,13 @@
 {
   "quiz": {
-    "footer": {
-      "prevlabel": "Back",
-      "nextlabel": "Next",
-      "submitlabel": "Submit"
+    "button": {
+      "label": {
+        "prev": "Back",
+        "next": "Next",
+        "finish": "Finish",
+        "repeat": "Repeat the quiz",
+        "submit": "Submit"
+      }
     },
     "question": {
       "requiredError": "Answer is required."

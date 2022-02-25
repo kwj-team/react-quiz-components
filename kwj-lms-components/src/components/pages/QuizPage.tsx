@@ -1,11 +1,12 @@
 import { Box, Alert, Stack, Card, CardContent, } from '@mui/material'
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import MultipleQuestion from '../elements/MultipleQuestion';
 import { QuizFooter } from '../elements/QuizFooter';
 import SingleQuestion from '../elements/SingleQuestion';
 import { useTranslation } from 'react-i18next'
 import { QuizResult } from '../elements/QuizResult';
 import { QuizEnd } from '../elements/QuizEnd';
+import { QuizStage } from '../elements/Quiz.types';
 
 type QuizPageData = Pick<QuizData,
     "title" | "description" | "showCorrectAnswers"
@@ -15,22 +16,39 @@ interface QuizProps {
     quiz: QuizPageData
 }
 
-
 const QuizPage = ({ quiz }: QuizProps) => {
     const [step, setStep] = useState(0)
     const [answers, setAnswers] = useState<Answer[]>([])
     const [error, setError] = useState("")
     const question = quiz.questions[step]
     const { t } = useTranslation();
-    const isLastStep = step === quiz.questions.length - 1;
-    const isResultStep = step === quiz.questions.length;
+
+    const stage = useMemo(() => {
+        if (step == 0) {
+            return QuizStage.FirstQuestion
+        }
+        if (step === quiz.questions.length - 1) {
+            return QuizStage.LastQuestion
+        }
+        if (step === quiz.questions.length && quiz.showCorrectAnswers) {
+            return QuizStage.AnswersReview
+        }
+
+        if (
+            (step === quiz.questions.length && quiz.showCorrectAnswers) ||
+            step > quiz.questions.length) {
+            return QuizStage.End
+        }
+
+        return QuizStage.Normal
+    }, [step, quiz])
 
     const nextStep = () => {
         if (
-            !question.question.isAnswerRequired ||
+            !question || !question.question.isAnswerRequired ||
             answers[step] && answers[step].isFilled
         ) {
-            if (isLastStep) {
+            if (stage === QuizStage.LastQuestion) {
                 console.log("wyslij na backend odpowiedzi")
             }
 
@@ -53,31 +71,43 @@ const QuizPage = ({ quiz }: QuizProps) => {
         setError("")
     }
 
+
     const component = question && getComponent(question, answers[step], step, setAnswer)
 
     return (
-        <Card sx={{ maxWidth: 800, margin: "0 auto" }}>
-            <CardContent>
-                <Box gap={0} display={"flex"} justifyContent={"center"} flexDirection={"column"}>
+        <Box sx={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center", width: 800, margin: "0 auto"
+
+        }} >
+            {component && <><Card sx={{ width: 800, margin: "0 auto" }}>
+                <CardContent>
+
                     {error &&
                         <Stack sx={{ marginBottom: 3, marginTop: 2, display: "flex", justifyContent: "flexEnd" }} spacing={2}>
                             <Alert severity="error">{t(error)}</Alert>
                         </Stack>
                     }
-                    {isResultStep && quiz.showCorrectAnswers && <QuizResult quiz={quiz} answers={answers} />}
-                    {isResultStep && !quiz.showCorrectAnswers && <QuizEnd />}
+
+
                     {component}
+                </CardContent>
+            </Card>
 
-                    <QuizFooter
-                        prevDisabled={step === 0 || isResultStep}
-                        submitStep={isLastStep}
-                        onNextClick={nextStep}
-                        onPrevClick={prevStep}
-                    />
+            </>}
 
-                </Box>
-            </CardContent>
-        </Card>
+            {stage === QuizStage.AnswersReview && <QuizResult quiz={quiz} answers={answers} />}
+            {stage === QuizStage.End && <QuizEnd />}
+
+            <QuizFooter
+                stage={stage}
+                prevDisabled={stage === QuizStage.FirstQuestion || stage === QuizStage.AnswersReview}
+                onNextClick={nextStep}
+                onPrevClick={prevStep}
+            />
+        </Box>
+
     );
 };
 

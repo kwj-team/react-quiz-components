@@ -1,9 +1,13 @@
 {
   "quiz": {
-    "footer": {
-      "prevlabel": "Zuruck",
-      "nextlabel": "Weiter",
-      "submitlabel": "Senden"
+    "button": {
+      "label": {
+        "prev": "Zuruck",
+        "next": "Weiter",
+        "finish": "Schließen",
+        "repeat": "Wiederholen das Quiz",
+        "submit": "Senden"
+      }
     },
     "question": {
       "requiredError": "Die Antwort ist erforderlich."
