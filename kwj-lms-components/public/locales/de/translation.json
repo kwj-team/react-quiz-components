@@ -6,7 +6,8 @@
         "next": "Weiter",
         "finish": "Schließen",
         "repeat": "Wiederholen das Quiz",
-        "submit": "Senden"
+        "submit": "Senden",
+        "final": ""
       }
     },
     "question": {

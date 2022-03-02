@@ -4,4 +4,5 @@ export enum QuizStage {
   LastQuestion,
   AnswersReview,
   End,
+  EndRepeat,
 }

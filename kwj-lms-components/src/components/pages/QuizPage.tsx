@@ -1,7 +1,7 @@
 import { Box, Alert, Stack, Card, CardContent, } from '@mui/material'
 import { useMemo, useState } from 'react';
 import MultipleQuestion from '../elements/MultipleQuestion';
-import { QuizFooter } from '../elements/QuizFooter';
+import { QuizActions } from '../elements/QuizActions';
 import SingleQuestion from '../elements/SingleQuestion';
 import { useTranslation } from 'react-i18next'
 import { QuizResult } from '../elements/QuizResult';
@@ -10,7 +10,7 @@ import { QuizStage } from '../elements/Quiz.types';
 
 type QuizPageData = Pick<QuizData,
     "title" | "description" | "showCorrectAnswers"
-    | "showPoints" | "randomize" | "questions">
+    | "showPoints" | "randomize" | "questions" | "isRepeatable" | "numberOfAttempts" | "finalButton">
 
 interface QuizProps {
     quiz: QuizPageData
@@ -34,9 +34,14 @@ const QuizPage = ({ quiz }: QuizProps) => {
             return QuizStage.AnswersReview
         }
 
-        if (
-            (step === quiz.questions.length && quiz.showCorrectAnswers) ||
-            step > quiz.questions.length) {
+        const isEndStep = (step === quiz.questions.length && !quiz.showCorrectAnswers) ||
+            step > quiz.questions.length;
+
+        if (quiz.isRepeatable && isEndStep) {
+            return QuizStage.EndRepeat
+        }
+
+        if (isEndStep) {
             return QuizStage.End
         }
 
@@ -44,13 +49,19 @@ const QuizPage = ({ quiz }: QuizProps) => {
     }, [step, quiz])
 
     const nextStep = () => {
+        if (stage === QuizStage.EndRepeat) {
+            setStep(0)
+            setAnswers([])
+            return;
+        }
+
         if (
             !question || !question.question.isAnswerRequired ||
             answers[step] && answers[step].isFilled
         ) {
-            if (stage === QuizStage.LastQuestion) {
-                console.log("wyslij na backend odpowiedzi")
-            }
+            // if (stage === QuizStage.LastQuestion) {
+            //     console.log("wyslij na backend odpowiedzi")
+            // }
 
             setStep(step + 1)
         } else {
@@ -81,6 +92,7 @@ const QuizPage = ({ quiz }: QuizProps) => {
             justifyContent: "center", width: 800, margin: "0 auto"
 
         }} >
+        //to wyciągnąć jako osobny komponent do section
             {component && <><Card sx={{ width: 800, margin: "0 auto" }}>
                 <CardContent>
 
@@ -98,13 +110,14 @@ const QuizPage = ({ quiz }: QuizProps) => {
             </>}
 
             {stage === QuizStage.AnswersReview && <QuizResult quiz={quiz} answers={answers} />}
-            {stage === QuizStage.End && <QuizEnd />}
+            {(stage === QuizStage.End || stage === QuizStage.EndRepeat) && <QuizEnd />}
 
-            <QuizFooter
+            <QuizActions
                 stage={stage}
                 prevDisabled={stage === QuizStage.FirstQuestion || stage === QuizStage.AnswersReview}
                 onNextClick={nextStep}
                 onPrevClick={prevStep}
+                finalButton={quiz.finalButton}
             />
         </Box>
 

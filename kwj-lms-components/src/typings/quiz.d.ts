@@ -5,6 +5,12 @@ type QuizData = {
   showCorrectAnswers: boolean;
   showPoints: boolean;
   randomize: boolean;
+  isRepeatable?: boolean;
+  numberOfAttempts?: number;
+  finalButton?: {
+    url: string;
+    label: string;
+  };
 
   questions: QuestionComponentData[];
 };

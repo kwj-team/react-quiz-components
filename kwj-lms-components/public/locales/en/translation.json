@@ -6,7 +6,8 @@
         "next": "Next",
         "finish": "Finish",
         "repeat": "Repeat the quiz",
-        "submit": "Submit"
+        "submit": "Submit",
+        "final": "Go to Home Page"
       }
     },
     "question": {

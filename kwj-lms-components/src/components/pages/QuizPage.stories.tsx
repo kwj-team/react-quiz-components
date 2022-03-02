@@ -22,10 +22,16 @@ export default {
     }]
 } as ComponentMeta<typeof QuizPage>
 
-const quizPageProps = {
+const quizPageProps: QuizData = {
     showCorrectAnswers: true,
+    isRepeatable: true,
+    numberOfAttempts: 3,
     title: "Quiz about KPI",
     description: "The quiz deals with the most important performance indicators in the enterprise. Select correct answers and check the test result.",
+    finalButton: {
+        url: "/",
+        label: "Go to the ... "
+    },
     questions: [{
         __typename: "ComponentElementsQuestionMultipleAnswer",
         question: {
