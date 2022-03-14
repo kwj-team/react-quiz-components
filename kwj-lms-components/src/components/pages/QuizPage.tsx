@@ -1,12 +1,11 @@
-import { Box, Alert, Stack, Card, CardContent, } from '@mui/material'
-import { useMemo, useState } from 'react';
-import MultipleQuestion from '../elements/MultipleQuestion';
-import { QuizActions } from '../elements/QuizActions';
-import SingleQuestion from '../elements/SingleQuestion';
-import { useTranslation } from 'react-i18next'
-import { QuizResult } from '../elements/QuizResult';
-import { QuizEnd } from '../elements/QuizEnd';
+import { Box } from '@mui/material';
+import { useState } from 'react';
 import { QuizStage } from '../elements/Quiz.types';
+import { QuizEnd } from '../elements/QuizEnd';
+import { QuizResult } from '../elements/QuizResult';
+import { Timer } from '../elements/Timer';
+import QuizComponent from '../sections/QuizComponent';
+import StartQuiz from '../sections/StartQuiz';
 
 type QuizPageData = Pick<QuizData,
     "title" | "description" | "showCorrectAnswers"
@@ -17,122 +16,54 @@ interface QuizProps {
 }
 
 const QuizPage = ({ quiz }: QuizProps) => {
-    const [step, setStep] = useState(0)
+    const [stage, setStage] = useState(QuizStage.QuizStart)
     const [answers, setAnswers] = useState<Answer[]>([])
-    const [error, setError] = useState("")
-    const question = quiz.questions[step]
-    const { t } = useTranslation();
+    const [seconds, setSeconds] = useState(0);
+    const [isActive, setIsActive] = useState(false);
+    const [showTime, setShowTime] = useState(false)
 
-    const stage = useMemo(() => {
-        if (step == 0) {
-            return QuizStage.FirstQuestion
-        }
-        if (step === quiz.questions.length - 1) {
-            return QuizStage.LastQuestion
-        }
-        if (step === quiz.questions.length && quiz.showCorrectAnswers) {
-            return QuizStage.AnswersReview
-        }
-
-        const isEndStep = (step === quiz.questions.length && !quiz.showCorrectAnswers) ||
-            step > quiz.questions.length;
-
-        if (quiz.isRepeatable && isEndStep) {
-            return QuizStage.EndRepeat
-        }
-
-        if (isEndStep) {
-            return QuizStage.End
-        }
-
-        return QuizStage.Normal
-    }, [step, quiz])
-
-    const nextStep = () => {
-        if (stage === QuizStage.EndRepeat) {
-            setStep(0)
-            setAnswers([])
-            return;
-        }
-
-        if (
-            !question || !question.question.isAnswerRequired ||
-            answers[step] && answers[step].isFilled
-        ) {
-            // if (stage === QuizStage.LastQuestion) {
-            //     console.log("wyslij na backend odpowiedzi")
-            // }
-
-            setStep(step + 1)
-        } else {
-            const error = "quiz.question.requiredError"
-            setError(error)
-        }
+    const onRepeatQuiz = () => {
+        setStage(QuizStage.QuizStart)
+        setSeconds(0)
     }
 
-
-    const prevStep = () => {
-        setStep(step - 1)
+    const onNextStep = (answers?: Answer[]) => {
+        if (stage === QuizStage.QuizStart) {
+            setIsActive(true);
+            setShowTime(true)
+            setStage(QuizStage.Questions)
+        }
+        if (stage === QuizStage.Questions) {
+            setIsActive(false);
+            setShowTime(false)
+            setAnswers(answers || [])
+            if (quiz.showCorrectAnswers) {
+                setStage(QuizStage.AnswersReview)
+            } else {
+                setStage(QuizStage.End)
+            }
+        }
+        if (stage === QuizStage.AnswersReview) {
+            setStage(QuizStage.End)
+        }
     }
-
-    const setAnswer = (answer: Answer) => {
-        const newAnswers = [...answers]
-        newAnswers[step] = answer
-        setAnswers(newAnswers)
-        setError("")
-    }
-
-
-    const component = question && getComponent(question, answers[step], step, setAnswer)
 
     return (
-        <Box sx={{
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "center", width: 800, margin: "0 auto"
-
-        }} >
-        //to wyciągnąć jako osobny komponent do section
-            {component && <><Card sx={{ width: 800, margin: "0 auto" }}>
-                <CardContent>
-
-                    {error &&
-                        <Stack sx={{ marginBottom: 3, marginTop: 2, display: "flex", justifyContent: "flexEnd" }} spacing={2}>
-                            <Alert severity="error">{t(error)}</Alert>
-                        </Stack>
-                    }
-
-
-                    {component}
-                </CardContent>
-            </Card>
-
-            </>}
-
-            {stage === QuizStage.AnswersReview && <QuizResult quiz={quiz} answers={answers} />}
-            {(stage === QuizStage.End || stage === QuizStage.EndRepeat) && <QuizEnd />}
-
-            <QuizActions
-                stage={stage}
-                prevDisabled={stage === QuizStage.FirstQuestion || stage === QuizStage.AnswersReview}
-                onNextClick={nextStep}
-                onPrevClick={prevStep}
-                finalButton={quiz.finalButton}
-            />
-        </Box>
-
+        <>
+            {stage === QuizStage.QuizStart && <StartQuiz title={quiz.title} description={quiz.description} onNextClick={onNextStep} />}
+            <Box sx={{
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center", width: 800, margin: "0 auto"
+            }} >
+                {showTime && <Timer isActive={isActive} seconds={seconds} setSeconds={setSeconds} />}
+                {stage === QuizStage.Questions && <QuizComponent quiz={quiz} onFinishQuiz={onNextStep} />}
+                {stage === QuizStage.AnswersReview && <QuizResult seconds={seconds} quiz={quiz} answers={answers} onNextStep={onNextStep} />}
+                {(stage === QuizStage.End) && <QuizEnd isRepeatable={quiz.isRepeatable} finalButton={quiz.finalButton} onRepeatQuiz={onRepeatQuiz} />}
+            </Box >
+        </>
     );
 };
 
 export default QuizPage;
 
-function getComponent(question: QuestionComponentData, userAnswer: Answer | undefined, index: number, setAnswer: (answer: Answer) => void) {
-    switch (question.__typename) {
-        case "ComponentElementsQuestionMultipleAnswer":
-            return <MultipleQuestion index={index} userAnswer={userAnswer && userAnswer.value} question={question} onChange={setAnswer} />
-        case "ComponentElementsQuestionSingleAnswer":
-            return <SingleQuestion index={index} userAnswer={userAnswer && userAnswer.value} question={question} onChange={setAnswer} />
-        default:
-            return null
-    }
-} 

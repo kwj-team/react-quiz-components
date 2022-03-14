@@ -10,4 +10,4 @@ const startQuizProps = {
 const Template: ComponentStory<typeof StartQuiz> = (args) => <StartQuiz {...args} />
 
 export const QuizStartView = Template.bind({})
-QuizStartView.args = { startquiz: startQuizProps }
+QuizStartView.args = startQuizProps
