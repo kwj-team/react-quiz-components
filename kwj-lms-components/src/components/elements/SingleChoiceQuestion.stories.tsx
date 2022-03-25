@@ -1,9 +1,9 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
-import SingleQuestion from "./SingleQuestion";
+import SingleChoiceQuestion from "./SingleChoiceQuestion";
 
-export default { title: 'components/elements/single-question', component: SingleQuestion } as ComponentMeta<typeof SingleQuestion>
+export default { title: 'components/elements/single-question', component: SingleChoiceQuestion } as ComponentMeta<typeof SingleChoiceQuestion>
 
-const singleQuestionProps = {
+const SingleChoiceQuestionProps = {
     __typename: "ComponentElementsQuestionSingleAnswer",
     question: {
         title: "Czy to jest prawda?",
@@ -22,22 +22,22 @@ const singleQuestionProps = {
             text: "fałsz"
         }
     ]
-} as SingleQuestionData;
+} as SingleChoiceQuestionData;
 
-const Template: ComponentStory<typeof SingleQuestion> = (args) => <SingleQuestion {...args} />
+const Template: ComponentStory<typeof SingleChoiceQuestion> = (args) => <SingleChoiceQuestion {...args} />
 
-export const DefaultSingleQuestion = Template.bind({})
-DefaultSingleQuestion.args = { question: singleQuestionProps, userAnswer: "" }
+export const DefaultSingleChoiceQuestion = Template.bind({})
+DefaultSingleChoiceQuestion.args = { question: SingleChoiceQuestionProps, userAnswer: "" }
 
 export const WrongAnswer = Template.bind({})
 WrongAnswer.args = {
-    question: singleQuestionProps,
+    question: SingleChoiceQuestionProps,
     userAnswer: "prawda",
     showAnswers: true
 }
 export const CorrectAnswer = Template.bind({})
 CorrectAnswer.args = {
-    question: singleQuestionProps,
+    question: SingleChoiceQuestionProps,
     userAnswer: "fałsz",
     showAnswers: true
 }

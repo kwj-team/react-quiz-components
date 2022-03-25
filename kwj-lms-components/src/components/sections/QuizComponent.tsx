@@ -1,6 +1,6 @@
 import { Box, Alert, Stack, Card, CardContent, Button, } from '@mui/material'
-import MultipleQuestion from "../elements/MultipleQuestion"
-import SingleQuestion from "../elements/SingleQuestion"
+import MultiChoiceQuestion from "../elements/MultiChoiceQuestion"
+import SingleChoiceQuestion from "../elements/SingleChoiceQuestion"
 import { useTranslation } from 'react-i18next'
 import { useState } from 'react'
 
@@ -70,9 +70,9 @@ const QuizComponent = ({ quiz, onFinishQuiz }: QuizComponentProps) => {
 function getComponent(question: QuestionComponentData, userAnswer: Answer | undefined, index: number, setAnswer: (answer: Answer) => void) {
     switch (question.__typename) {
         case "ComponentElementsQuestionMultipleAnswer":
-            return <MultipleQuestion index={index} userAnswer={userAnswer && userAnswer.value} question={question} onChange={setAnswer} />
+            return <MultiChoiceQuestion index={index} userAnswer={userAnswer && userAnswer.value} question={question} onChange={setAnswer} />
         case "ComponentElementsQuestionSingleAnswer":
-            return <SingleQuestion index={index} userAnswer={userAnswer && userAnswer.value} question={question} onChange={setAnswer} />
+            return <SingleChoiceQuestion index={index} userAnswer={userAnswer && userAnswer.value} question={question} onChange={setAnswer} />
         default:
             return null
     }

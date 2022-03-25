@@ -15,9 +15,9 @@ type QuizData = {
   questions: QuestionComponentData[];
 };
 
-type QuestionComponentData = SingleQuestionData | MultiQuestionData;
+type QuestionComponentData = SingleChoiceQuestionData | MultiChoiceQuestionData;
 
-type SingleQuestionData = {
+type SingleChoiceQuestionData = {
   question: QuestionData;
   __typename: "ComponentElementsQuestionSingleAnswer";
 
@@ -28,7 +28,7 @@ type SingleQuestionData = {
   }[];
 };
 
-type MultiQuestionData = {
+type MultiChoiceQuestionData = {
   question: QuestionData;
   __typename: "ComponentElementsQuestionMultipleAnswer";
 

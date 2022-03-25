@@ -1,8 +1,8 @@
 import { Box, Button, Card, CardContent, Typography } from '@mui/material'
 import { useTranslation } from 'react-i18next'
 import { formatSeconds } from "./Timer";
-import MultipleQuestion from './MultipleQuestion';
-import SingleQuestion from './SingleQuestion';
+import MultiChoiceQuestion from './MultiChoiceQuestion';
+import SingleChoiceQuestion from './SingleChoiceQuestion';
 
 type QuizResultData = Pick<QuizData,
     "title" | "description" | "showCorrectAnswers"
@@ -43,10 +43,10 @@ function getComponent(question: QuestionComponentData, userAnswer: Answer | unde
     switch (question.__typename) {
         case "ComponentElementsQuestionMultipleAnswer":
             return <Card sx={{ width: 800, margin: "0 auto" }}>
-                <CardContent><MultipleQuestion index={index} showAnswers userAnswer={userAnswer && userAnswer.value} question={question} /></CardContent></Card>
+                <CardContent><MultiChoiceQuestion index={index} showAnswers userAnswer={userAnswer && userAnswer.value} question={question} /></CardContent></Card>
         case "ComponentElementsQuestionSingleAnswer":
             return <Card sx={{ width: 800, margin: "0 auto" }}>
-                <CardContent><SingleQuestion index={index} showAnswers userAnswer={userAnswer && userAnswer.value} question={question} /></CardContent></Card>
+                <CardContent><SingleChoiceQuestion index={index} showAnswers userAnswer={userAnswer && userAnswer.value} question={question} /></CardContent></Card>
         default:
             return null
     }

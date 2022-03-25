@@ -1,45 +1,56 @@
 import { Box } from '@mui/material'
 import Question from './Question';
-import RadioGroup from '@mui/material/RadioGroup';
+import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
-import Radio from '@mui/material/Radio';
+import Checkbox from '@mui/material/Checkbox';
 
-interface SingleQuestionProps {
-    question: SingleQuestionData;
-    userAnswer: string;
+
+interface MultiChoiceQuestionProps {
+    question: MultiChoiceQuestionData;
     onChange?: (change: { value: any, isFilled: boolean }) => void;
     showAnswers?: boolean;
+    userAnswer: string[];
     index: number
 }
 
-function UseRadioGroup({ answers, userAnswer, showAnswers, onChange }:
+function CheckboxLabels({ answers, userAnswer, showAnswers, onChange }:
     {
-        answers: SingleQuestionData["answers"]
-        userAnswer: SingleQuestionProps["userAnswer"]
-        onChange: SingleQuestionProps["onChange"]
+        answers: MultiChoiceQuestionData["answers"]
+        userAnswer: MultiChoiceQuestionProps["userAnswer"]
+        onChange: MultiChoiceQuestionProps["onChange"]
         showAnswers: boolean
-    }) {
-
-    const handleChange = (ev: React.SyntheticEvent) => {
+    }
+) {
+    const handleChange = (ev: React.SyntheticEvent, checked: boolean) => {
         const target: any = ev.target;
-        if (onChange) {
+        if (!onChange) { return }
+        if (checked) {
+            const newValue = !userAnswer ? [target.value] : [...userAnswer, target.value];
             onChange({
-                value: target.value,
+                value: newValue,
                 isFilled: true
+            })
+        } else {
+            const newValue = !userAnswer ? [] : userAnswer.filter((val) => val !== target.value);
+            onChange({
+                value: newValue,
+                isFilled: newValue.length > 0
             })
         }
     }
+
     return (
-        <RadioGroup name="use-radio-group"  >
+        <FormGroup >
             {answers.map((answer) => {
                 let color: "success" | "error" | undefined;
                 if (showAnswers) {
                     color = answer.isCorrect ? "success" : "error";
                 }
 
-                const isUserSelected = userAnswer === answer.key;
+                const isUserSelected = userAnswer?.includes(answer.key);
                 const textDecoration = showAnswers && !answer.isCorrect && isUserSelected ?
-                    "line-through" : undefined;
+                    "line-through" :
+                    undefined;
 
                 let labelColor: "success" | "error" | undefined;
                 if (showAnswers) {
@@ -53,32 +64,35 @@ function UseRadioGroup({ answers, userAnswer, showAnswers, onChange }:
                 return <FormControlLabel
                     onChange={handleChange}
                     checked={isUserSelected}
-                    label={answer.text}
+                    control={<Checkbox color={color} value={answer.key} />}
                     sx={{
                         '& .MuiFormControlLabel-label': (theme) => ({
                             color: labelColor && theme.palette[labelColor].main,
                             textDecoration,
                         })
                     }}
-                    control={<Radio color={color} value={answer.key} />}
-                />
+                    label={answer.text}
+                />;
             })}
-        </RadioGroup>
+        </FormGroup>
     );
 }
 
 
-const SingleQuestion = ({ question, userAnswer, showAnswers, index, onChange }: SingleQuestionProps) => {
+const MultiChoiceQuestion = ({ question, userAnswer, showAnswers, index, onChange }: MultiChoiceQuestionProps) => {
     return (
+
         <Box gap={0} display={"flex"} flexDirection={"column"}>
+
             <Question index={index} question={question.question} />
-            <UseRadioGroup
-                answers={question.answers}
+            <CheckboxLabels
                 onChange={onChange}
+                answers={question.answers}
                 userAnswer={userAnswer}
-                showAnswers={showAnswers || false} />
+                showAnswers={showAnswers || false}
+            />
         </Box>
     );
 };
 
-export default SingleQuestion;
+export default MultiChoiceQuestion;

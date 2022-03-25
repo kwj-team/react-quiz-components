@@ -1,10 +1,9 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
-import { findAllByTestId } from "@testing-library/react";
-import MultipleQuestion from "./MultipleQuestion";
+import MultiChoiceQuestion from "./MultiChoiceQuestion";
 
-export default { title: 'components/elements/multiple-question', component: MultipleQuestion } as ComponentMeta<typeof MultipleQuestion>
+export default { title: 'components/elements/multiple-question', component: MultiChoiceQuestion } as ComponentMeta<typeof MultiChoiceQuestion>
 
-const multipleQuestionProps = {
+const MultiChoiceQuestionProps = {
     __typename: "ComponentElementsQuestionMultipleAnswer",
     question: {
         title: "Jakie powinny być KPIs?",
@@ -33,28 +32,28 @@ const multipleQuestionProps = {
             text: "uniwersalne dla wszystkich organizacji"
         }
     ]
-} as MultiQuestionData;
+} as MultiChoiceQuestionData;
 
-const Template: ComponentStory<typeof MultipleQuestion> = (args) => <MultipleQuestion {...args} />
+const Template: ComponentStory<typeof MultiChoiceQuestion> = (args) => <MultiChoiceQuestion {...args} />
 
-export const DefaultMultipleQuestion = Template.bind({})
-DefaultMultipleQuestion.args = { question: multipleQuestionProps, userAnswer: [] }
+export const DefaultMultiChoiceQuestion = Template.bind({})
+DefaultMultiChoiceQuestion.args = { question: MultiChoiceQuestionProps, userAnswer: [] }
 
 export const SingleWrongAnswer = Template.bind({})
 SingleWrongAnswer.args = {
-    question: multipleQuestionProps,
+    question: MultiChoiceQuestionProps,
     userAnswer: ["random4"],
     showAnswers: true
 }
 export const AllCorrectAnswers = Template.bind({})
 AllCorrectAnswers.args = {
-    question: multipleQuestionProps,
+    question: MultiChoiceQuestionProps,
     userAnswer: ["random1", "random2", "random3"],
     showAnswers: true
 }
 export const WrongAndCorrectAnswers = Template.bind({})
 WrongAndCorrectAnswers.args = {
-    question: multipleQuestionProps,
+    question: MultiChoiceQuestionProps,
     userAnswer: ["random2", "random3", "random4"],
     showAnswers: true
 }
