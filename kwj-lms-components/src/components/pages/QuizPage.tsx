@@ -1,11 +1,11 @@
-import { Box } from '@mui/material';
+import { Box, } from '@mui/material';
 import { useState } from 'react';
 import { QuizStage } from '../elements/Quiz.types';
 import { QuizEnd } from '../elements/QuizEnd';
 import { QuizResult } from '../elements/QuizResult';
 import { Timer } from '../elements/Timer';
-import QuizComponent from '../sections/QuizComponent';
-import StartQuiz from '../sections/StartQuiz';
+import QuizComponent from '../elements/QuizComponent';
+import QuizStart from '../elements/QuizStart';
 
 type QuizPageData = Pick<QuizData,
     "title" | "description" | "showCorrectAnswers"
@@ -13,9 +13,12 @@ type QuizPageData = Pick<QuizData,
 
 interface QuizProps {
     quiz: QuizPageData
+    userContext: {
+        attemptsTaken: number;
+    }
 }
 
-const QuizPage = ({ quiz }: QuizProps) => {
+const QuizPage = ({ quiz, userContext }: QuizProps) => {
     const [stage, setStage] = useState(QuizStage.QuizStart)
     const [answers, setAnswers] = useState<Answer[]>([])
     const [seconds, setSeconds] = useState(0);
@@ -25,6 +28,16 @@ const QuizPage = ({ quiz }: QuizProps) => {
     const onRepeatQuiz = () => {
         setStage(QuizStage.QuizStart)
         setSeconds(0)
+    }
+
+    const remainingAttempts = quiz.numberOfAttempts - userContext.attemptsTaken;
+
+    const SumOfPoints = () => {
+        const total = quiz.questions.reduce((prev, current) => prev + current.question.points, 0)
+        return <p>Totalnie: {total}</p>
+    }
+    const sumOfObtainedPoints = () => {
+        quiz.questions.reduce((prev, current) => prev + current.question.points, 0)
     }
 
     const onNextStep = (answers?: Answer[]) => {
@@ -50,7 +63,8 @@ const QuizPage = ({ quiz }: QuizProps) => {
 
     return (
         <>
-            {stage === QuizStage.QuizStart && <StartQuiz title={quiz.title} description={quiz.description} onNextClick={onNextStep} />}
+            <SumOfPoints />
+            {stage === QuizStage.QuizStart && <QuizStart title={quiz.title} description={quiz.description} onNextClick={onNextStep} />}
             <Box sx={{
                 display: "flex",
                 flexDirection: "column",
@@ -59,7 +73,7 @@ const QuizPage = ({ quiz }: QuizProps) => {
                 {showTime && <Timer isActive={isActive} seconds={seconds} setSeconds={setSeconds} />}
                 {stage === QuizStage.Questions && <QuizComponent quiz={quiz} onFinishQuiz={onNextStep} />}
                 {stage === QuizStage.AnswersReview && <QuizResult seconds={seconds} quiz={quiz} answers={answers} onNextStep={onNextStep} />}
-                {(stage === QuizStage.End) && <QuizEnd isRepeatable={quiz.isRepeatable} finalButton={quiz.finalButton} onRepeatQuiz={onRepeatQuiz} />}
+                {(stage === QuizStage.End) && <QuizEnd remainingAttempts={remainingAttempts} isRepeatable={quiz.isRepeatable} finalButton={quiz.finalButton} onRepeatQuiz={onRepeatQuiz} />}
             </Box >
         </>
     );
