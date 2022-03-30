@@ -6,7 +6,7 @@ type QuizData = {
   showPoints: boolean;
   randomize: boolean;
   isRepeatable?: boolean;
-  numberOfAttempts?: number;
+  numberOfAttempts: number;
   finalButton?: {
     url: string;
     label: string;

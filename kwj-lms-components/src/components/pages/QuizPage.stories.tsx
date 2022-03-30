@@ -1,7 +1,7 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
-import { useEffect } from "react";
+// import { useEffect } from "react";
 import QuizPage from "./QuizPage";
-import { useTranslation } from 'react-i18next';
+// import { useTranslation } from 'react-i18next';
 
 export default {
     title: 'components/sections/quiz', component: QuizPage, decorators: [(Story) => {
@@ -24,6 +24,7 @@ export default {
 
 const quizPageProps: QuizData = {
     showCorrectAnswers: true,
+    showPoints: true,
     isRepeatable: true,
     numberOfAttempts: 3,
     title: "Quiz about KPI",
@@ -37,7 +38,7 @@ const quizPageProps: QuizData = {
         question: {
             title: "Is it true?",
             description: "Select all correct answers",
-            points: 1,
+            points: 3,
             isAnswerRequired: true
         },
         answers: [
@@ -106,4 +107,9 @@ const quizPageProps: QuizData = {
 const Template: ComponentStory<typeof QuizPage> = (args) => <QuizPage {...args} />
 
 export const DefaultQuizPage = Template.bind({})
-DefaultQuizPage.args = { quiz: quizPageProps }
+DefaultQuizPage.args = {
+    quiz: quizPageProps,
+    userContext: {
+        attemptsTaken: 3
+    }
+}

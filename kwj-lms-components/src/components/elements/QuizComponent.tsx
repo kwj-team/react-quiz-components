@@ -1,6 +1,6 @@
 import { Box, Alert, Stack, Card, CardContent, Button, } from '@mui/material'
-import MultiChoiceQuestion from "../elements/MultiChoiceQuestion"
-import SingleChoiceQuestion from "../elements/SingleChoiceQuestion"
+import MultiChoiceQuestion from "./MultiChoiceQuestion"
+import SingleChoiceQuestion from "./SingleChoiceQuestion"
 import { useTranslation } from 'react-i18next'
 import { useState } from 'react'
 

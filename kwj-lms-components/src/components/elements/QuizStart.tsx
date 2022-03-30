@@ -1,13 +1,13 @@
 import { Box, Button, Stack, Typography } from '@mui/material'
 
-interface StartQuizProps {
+interface QuizStartProps {
     onNextClick: () => void
 
     title: QuizData["title"]
     description: QuizData["description"]
 }
 
-const StartQuiz = ({ title, description, onNextClick }: StartQuizProps) => {
+const QuizStart = ({ title, description, onNextClick }: QuizStartProps) => {
     return (
         <Box gap={2} display={"flex"} flexDirection={"column"} textAlign={"center"}>
             <Typography variant="h5" component="div">{title}</Typography>
@@ -19,4 +19,4 @@ const StartQuiz = ({ title, description, onNextClick }: StartQuizProps) => {
     );
 };
 
-export default StartQuiz;
+export default QuizStart;

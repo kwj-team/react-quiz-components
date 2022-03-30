@@ -1,4 +1,4 @@
-import { Box } from '@mui/material'
+import { Box, Typography } from '@mui/material'
 import Question from './Question';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -79,11 +79,10 @@ function CheckboxLabels({ answers, userAnswer, showAnswers, onChange }:
 }
 
 
+
 const MultiChoiceQuestion = ({ question, userAnswer, showAnswers, index, onChange }: MultiChoiceQuestionProps) => {
     return (
-
         <Box gap={0} display={"flex"} flexDirection={"column"}>
-
             <Question index={index} question={question.question} />
             <CheckboxLabels
                 onChange={onChange}

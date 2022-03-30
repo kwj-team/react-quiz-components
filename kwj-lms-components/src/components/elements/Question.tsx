@@ -8,7 +8,10 @@ interface QuestionProps {
 const Question = ({ question, index }: QuestionProps) => {
   return (
     <Box display={"flex"} flexDirection={"column"}>
-      <Typography marginBottom={2} variant="h6" fontWeight={"bold"} component="span">{index + 1}. {question.title}</Typography>
+      <Box display={"flex"} justifyContent={"space-between"}>
+        <Typography marginBottom={2} variant="h6" fontWeight={"bold"} component="span">{index + 1}. {question.title}</Typography>
+        <Typography fontWeight={"bold"} variant="h6">0/{question.points}</Typography>
+      </Box>
       <Typography marginBottom={3} variant="questionDescription">{question.description}</Typography>
     </Box>
   );
