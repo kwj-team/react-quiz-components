@@ -1,53 +1,122 @@
-import { Box, Button, Card, CardContent, Typography } from '@mui/material'
-import { useTranslation } from 'react-i18next'
+import { Box, Button, Card, CardContent, Typography } from "@mui/material";
+import { useTranslation } from "react-i18next";
 import { formatSeconds } from "./Timer";
-import MultiChoiceQuestion from './MultiChoiceQuestion';
-import SingleChoiceQuestion from './SingleChoiceQuestion';
+import MultiChoiceQuestion from "./MultiChoiceQuestion";
+import SingleChoiceQuestion from "./SingleChoiceQuestion";
+import isEqual from "lodash.isequal";
 
-type QuizResultData = Pick<QuizData,
-    "title" | "description" | "showCorrectAnswers"
-    | "showPoints" | "randomize" | "questions">
+type QuizResultData = Pick<
+  QuizData,
+  | "title"
+  | "description"
+  | "showCorrectAnswers"
+  | "showPoints"
+  | "randomize"
+  | "questions"
+>;
 
 interface QuizResultProps {
-    onNextStep: () => void
+  onNextStep: () => void;
 
-    quiz: QuizResultData
-    answers: Answer[]
-    quizResultTitle?: string
-    seconds: number
+  quiz: QuizResultData;
+  answers: Answer[];
+  quizResultTitle?: string;
+  seconds: number;
+  sumOfUserPoints: number;
+  sumOfPoints: number;
 }
 
-export const QuizResult = ({ quiz, answers, quizResultTitle, seconds, onNextStep }: QuizResultProps) => {
-    const { t, i18n } = useTranslation();
-
-    return (
-        <Box sx={{
-            display: "flex",
-            flexDirection: "column",
-            rowGap: "30px"
-        }}>
-
-            <Typography sx={{
-                textAlign: "center",
-            }} variant="h4">{quizResultTitle || t("quiz.quizResult.title")}</Typography>
-            <Typography variant="h6">Your time to complete the quiz: {formatSeconds(seconds)}</Typography>
-            {quiz.questions.map((question, i) => getComponent(question, answers[i], i))}
-            <Box gap={1} marginTop={3} display="flex" justifyContent="flex-end" >
-                <Button variant="contained" size="large" onClick={onNextStep}>{t("quiz.button.label.next")}</Button>
-            </Box >
-        </Box >
-    );
+export const QuizResult = ({
+  quiz,
+  answers,
+  quizResultTitle,
+  seconds,
+  onNextStep,
+  sumOfUserPoints,
+  sumOfPoints,
+}: QuizResultProps) => {
+  const { t } = useTranslation();
+  const result = (sumOfUserPoints / sumOfPoints) * 100;
+  const percentageResult = `${result}%`;
+  return (
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        rowGap: "30px",
+      }}
+    >
+      <Typography
+        sx={{
+          textAlign: "center",
+        }}
+        variant="h4"
+      >
+        {quizResultTitle || t("quiz.quizResult.title")}
+      </Typography>
+      <Typography variant="h6">
+        Your time to complete the quiz: {formatSeconds(seconds)}
+      </Typography>
+      <Typography variant="h6">
+        Your result: {sumOfUserPoints}/{sumOfPoints} points ({percentageResult})
+      </Typography>
+      {quiz.questions.map((question, i) =>
+        getComponent(question, answers[i], i)
+      )}
+      <Box gap={1} marginTop={3} display="flex" justifyContent="flex-end">
+        <Button variant="contained" size="large" onClick={onNextStep}>
+          {t("quiz.button.label.next")}
+        </Button>
+      </Box>
+    </Box>
+  );
 };
 
-function getComponent(question: QuestionComponentData, userAnswer: Answer | undefined, index: number) {
-    switch (question.__typename) {
-        case "ComponentElementsQuestionMultipleAnswer":
-            return <Card sx={{ width: 800, margin: "0 auto" }}>
-                <CardContent><MultiChoiceQuestion index={index} showAnswers userAnswer={userAnswer && userAnswer.value} question={question} /></CardContent></Card>
-        case "ComponentElementsQuestionSingleAnswer":
-            return <Card sx={{ width: 800, margin: "0 auto" }}>
-                <CardContent><SingleChoiceQuestion index={index} showAnswers userAnswer={userAnswer && userAnswer.value} question={question} /></CardContent></Card>
-        default:
-            return null
-    }
-} 
+function getComponent(
+  question: QuestionComponentData,
+  userAnswer: Answer | undefined,
+  index: number
+) {
+  const correctAnswers = question.answers
+    .filter((answer) => answer.isCorrect === true)
+    .map((answer) => answer.key);
+  const userPoints =
+    userAnswer && isEqual(correctAnswers, userAnswer.value)
+      ? question.question.points
+      : 0;
+
+  console.log(userPoints);
+
+  switch (question.__typename) {
+    case "ComponentElementsQuestionMultipleAnswer":
+      return (
+        <Card sx={{ width: 800, margin: "0 auto" }}>
+          <CardContent>
+            <MultiChoiceQuestion
+              userPoints={userPoints}
+              index={index}
+              showAnswers
+              userAnswer={userAnswer && userAnswer.value}
+              question={question}
+            />
+          </CardContent>
+        </Card>
+      );
+    case "ComponentElementsQuestionSingleAnswer":
+      return (
+        <Card sx={{ width: 800, margin: "0 auto" }}>
+          <CardContent>
+            <SingleChoiceQuestion
+              userPoints={userPoints}
+              index={index}
+              showAnswers
+              userAnswer={userAnswer && userAnswer.value}
+              question={question}
+            />
+          </CardContent>
+        </Card>
+      );
+    default:
+      return null;
+  }
+}

@@ -47,7 +47,7 @@ type QuestionData = {
 };
 
 interface Answer {
-  value: any;
+  value: any[];
   isFilled: boolean;
 }
 

@@ -3238,6 +3238,18 @@
   "resolved" "https://registry.npmjs.org/@types/json5/-/json5-0.0.29.tgz"
   "version" "0.0.29"
 
+"@types/lodash.isequal@^4.5.5":
+  "integrity" "sha512-4IKbinG7MGP131wRfceK6W4E/Qt3qssEFLF30LnJbjYiSfHGGRU/Io8YxXrZX109ir+iDETC8hw8QsDijukUVg=="
+  "resolved" "https://registry.npmjs.org/@types/lodash.isequal/-/lodash.isequal-4.5.5.tgz"
+  "version" "4.5.5"
+  dependencies:
+    "@types/lodash" "*"
+
+"@types/lodash@*":
+  "integrity" "sha512-n3tyKthHJbkiWhDZs3DkhkCzt2MexYHXlX0td5iMplyfwketaOeKboEVBqzceH7juqvEg3q5oUoBFxSLu7zFag=="
+  "resolved" "https://registry.npmjs.org/@types/lodash/-/lodash-4.14.181.tgz"
+  "version" "4.14.181"
+
 "@types/mdast@^3.0.0":
   "integrity" "sha512-W864tg/Osz1+9f4lrGTZpCSO5/z4608eUp19tbozkq2HJK6i3z1kT0H9tlADXuYIb1YYOBByU4Jsqkk75q48qA=="
   "resolved" "https://registry.npmjs.org/@types/mdast/-/mdast-3.0.10.tgz"
@@ -9951,6 +9963,11 @@
   "integrity" "sha1-gteb/zCmfEAF/9XiUVMArZyk168="
   "resolved" "https://registry.npmjs.org/lodash.debounce/-/lodash.debounce-4.0.8.tgz"
   "version" "4.0.8"
+
+"lodash.isequal@^4.5.0":
+  "integrity" "sha1-QVxEePK8wwEgwizhDtMib30+GOA="
+  "resolved" "https://registry.npmjs.org/lodash.isequal/-/lodash.isequal-4.5.0.tgz"
+  "version" "4.5.0"
 
 "lodash.memoize@^4.1.2":
   "integrity" "sha1-vMbEmkKihA7Zl/Mj6tpezRguC/4="
