@@ -2,8 +2,7 @@ import { Box, Alert, Stack, Card, CardContent, Button } from "@mui/material";
 import MultiChoiceQuestion from "./MultiChoiceQuestion";
 import SingleChoiceQuestion from "./SingleChoiceQuestion";
 import { useTranslation } from "react-i18next";
-import { useEffect, useState } from "react";
-import { shuffle } from "lodash";
+import { useState } from "react";
 
 type QuizComponentData = Pick<
   QuizData,
@@ -21,11 +20,16 @@ type QuizComponentData = Pick<
 interface QuizComponentProps {
   quiz: QuizComponentData;
   onFinishQuiz: (answers: Answer[]) => void;
+  questions: QuizData["questions"];
 }
-const QuizComponent = ({ quiz, onFinishQuiz }: QuizComponentProps) => {
+const QuizComponent = ({
+  quiz,
+  onFinishQuiz,
+  questions,
+}: QuizComponentProps) => {
   const [error, setError] = useState("");
   const [step, setStep] = useState(0);
-  const question = quiz.questions[step];
+  const question = questions[step];
   const { t } = useTranslation();
 
   const [answers, setAnswers] = useState<Answer[]>([]);
@@ -55,12 +59,6 @@ const QuizComponent = ({ quiz, onFinishQuiz }: QuizComponentProps) => {
   const prevStep = () => {
     setStep(step - 1);
   };
-
-  const shuffledQuestions = shuffle(quiz.questions);
-  const shuffledQuestionsAndAnswers = shuffledQuestions.map((question) => ({
-    ...question,
-    answers: shuffle(question.answers),
-  }));
 
   const component =
     question && getComponent(question, answers[step], step, setAnswer);
@@ -112,21 +110,17 @@ const QuizComponent = ({ quiz, onFinishQuiz }: QuizComponentProps) => {
   );
 };
 function getComponent(
-  // quiz: QuizComponentData,
-  // randomize: QuizComponentData,
   question: QuestionComponentData,
   userAnswer: Answer | undefined,
   index: number,
   setAnswer: (answer: Answer) => void
 ) {
-  // const randomQuestions = shuffle(quiz.questions);
   switch (question.__typename) {
     case "ComponentElementsQuestionMultipleAnswer":
       return (
         <MultiChoiceQuestion
           index={index}
           userAnswer={userAnswer && userAnswer.value}
-          // question={randomize ? randomQuestions : question}
           question={question}
           onChange={setAnswer}
         />

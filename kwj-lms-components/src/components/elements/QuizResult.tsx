@@ -24,6 +24,7 @@ interface QuizResultProps {
   seconds: number;
   sumOfUserPoints: number;
   sumOfPoints: number;
+  questions: QuizData["questions"];
 }
 
 export const QuizResult = ({
@@ -34,6 +35,7 @@ export const QuizResult = ({
   onNextStep,
   sumOfUserPoints,
   sumOfPoints,
+  questions,
 }: QuizResultProps) => {
   const { t } = useTranslation();
   const result = (sumOfUserPoints / sumOfPoints) * 100;
@@ -60,9 +62,7 @@ export const QuizResult = ({
       <Typography variant="h6">
         Your result: {sumOfUserPoints}/{sumOfPoints} points ({percentageResult})
       </Typography>
-      {quiz.questions.map((question, i) =>
-        getComponent(question, answers[i], i)
-      )}
+      {questions.map((question, i) => getComponent(question, answers[i], i))}
       <Box gap={1} marginTop={3} display="flex" justifyContent="flex-end">
         <Button variant="contained" size="large" onClick={onNextStep}>
           {t("quiz.button.label.next")}

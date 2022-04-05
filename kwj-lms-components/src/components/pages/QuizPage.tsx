@@ -1,5 +1,5 @@
 import { Box } from "@mui/material";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { QuizStage } from "../elements/Quiz.types";
 import { QuizEnd } from "../elements/QuizEnd";
 import { QuizResult } from "../elements/QuizResult";
@@ -7,6 +7,7 @@ import { Timer } from "../elements/Timer";
 import QuizComponent from "../elements/QuizComponent";
 import QuizStart from "../elements/QuizStart";
 import isEqual from "lodash.isequal";
+import { shuffle } from "lodash";
 
 type QuizPageData = Pick<
   QuizData,
@@ -34,6 +35,7 @@ const QuizPage = ({ quiz, userContext }: QuizProps) => {
   const [seconds, setSeconds] = useState(0);
   const [isActive, setIsActive] = useState(false);
   const [showTime, setShowTime] = useState(false);
+  const [questions, setQuestions] = useState(quiz.questions);
 
   const onRepeatQuiz = () => {
     setStage(QuizStage.QuizStart);
@@ -42,31 +44,40 @@ const QuizPage = ({ quiz, userContext }: QuizProps) => {
 
   const remainingAttempts = quiz.numberOfAttempts - userContext.attemptsTaken;
 
+  const shuffledQuestions = shuffle(quiz.questions);
+  const shuffledQuestionsAndAnswers = shuffledQuestions.map((question) => ({
+    ...question,
+    answers: shuffle(question.answers),
+  }));
+
+  useEffect(() => {
+    if (quiz.randomize) {
+      setQuestions(shuffledQuestionsAndAnswers);
+    }
+  }, [quiz.randomize]);
+
   const sumOfUserPoints = useMemo(() => {
-    const correctAnswers = quiz.questions.map((question) => {
+    const correctAnswers = questions.map((question) => {
       return question.answers
         .filter((answer) => answer.isCorrect === true)
         .map((answer) => answer.key);
     });
     let userPoints = 0;
-    for (let i = 0; i < quiz.questions.length; i++) {
+    for (let i = 0; i < questions.length; i++) {
       if (!answers[i]) {
         return userPoints;
       }
       if (isEqual(correctAnswers[i], answers[i].value)) {
-        userPoints = userPoints + quiz.questions[i].question.points;
+        userPoints = userPoints + questions[i].question.points;
       }
     }
     return userPoints;
-  }, [answers, quiz.questions]);
+  }, [answers, questions]);
 
   const sumOfPoints = useMemo(
     () =>
-      quiz.questions.reduce(
-        (prev, current) => prev + current.question.points,
-        0
-      ),
-    [quiz.questions]
+      questions.reduce((prev, current) => prev + current.question.points, 0),
+    [questions]
   );
 
   const onNextStep = (answers?: Answer[]) => {
@@ -116,7 +127,11 @@ const QuizPage = ({ quiz, userContext }: QuizProps) => {
           />
         )}
         {stage === QuizStage.Questions && (
-          <QuizComponent quiz={quiz} onFinishQuiz={onNextStep} />
+          <QuizComponent
+            quiz={quiz}
+            onFinishQuiz={onNextStep}
+            questions={questions}
+          />
         )}
         {stage === QuizStage.AnswersReview && (
           <QuizResult
@@ -126,6 +141,7 @@ const QuizPage = ({ quiz, userContext }: QuizProps) => {
             quiz={quiz}
             answers={answers}
             onNextStep={onNextStep}
+            questions={questions}
           />
         )}
         {stage === QuizStage.End && (

@@ -1,7 +1,7 @@
 type QuizData = {
   title: string;
   description: string;
-  points: number;
+  // points: number;
   showCorrectAnswers: boolean;
   showPoints: boolean;
   randomize: boolean;
