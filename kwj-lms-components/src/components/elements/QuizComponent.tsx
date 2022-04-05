@@ -2,7 +2,8 @@ import { Box, Alert, Stack, Card, CardContent, Button } from "@mui/material";
 import MultiChoiceQuestion from "./MultiChoiceQuestion";
 import SingleChoiceQuestion from "./SingleChoiceQuestion";
 import { useTranslation } from "react-i18next";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { shuffle } from "lodash";
 
 type QuizComponentData = Pick<
   QuizData,
@@ -55,8 +56,23 @@ const QuizComponent = ({ quiz, onFinishQuiz }: QuizComponentProps) => {
     setStep(step - 1);
   };
 
+  const shuffledQuestions = shuffle(quiz.questions);
+  const shuffledQuestionsAndAnswers = shuffledQuestions.map((question) => ({
+    ...question,
+    answers: shuffle(question.answers),
+  }));
+
   const component =
     question && getComponent(question, answers[step], step, setAnswer);
+
+  // const randomQuestions = () => {
+  //   let allQuestions = quiz.questions;
+  //   for (let i = allQuestions.length - 1; i > 0; i--) {
+  //     const j = Math.floor(Math.random() * (i + 1));
+  //     [allQuestions[i], allQuestions[j]] = [allQuestions[j], allQuestions[i]];
+  //   }
+  // };
+
   return (
     <>
       {component && (
@@ -75,7 +91,6 @@ const QuizComponent = ({ quiz, onFinishQuiz }: QuizComponentProps) => {
                 <Alert severity="error">{t(error)}</Alert>
               </Stack>
             )}
-
             {component}
           </CardContent>
         </Card>
@@ -97,17 +112,21 @@ const QuizComponent = ({ quiz, onFinishQuiz }: QuizComponentProps) => {
   );
 };
 function getComponent(
+  // quiz: QuizComponentData,
+  // randomize: QuizComponentData,
   question: QuestionComponentData,
   userAnswer: Answer | undefined,
   index: number,
   setAnswer: (answer: Answer) => void
 ) {
+  // const randomQuestions = shuffle(quiz.questions);
   switch (question.__typename) {
     case "ComponentElementsQuestionMultipleAnswer":
       return (
         <MultiChoiceQuestion
           index={index}
           userAnswer={userAnswer && userAnswer.value}
+          // question={randomize ? randomQuestions : question}
           question={question}
           onChange={setAnswer}
         />
