@@ -27,9 +27,10 @@ interface QuizProps {
   userContext: {
     attemptsTaken: number;
   };
+  onFinish: () => void;
 }
 
-const QuizPage = ({ quiz, userContext }: QuizProps) => {
+const QuizPage = ({ quiz, userContext, onFinish }: QuizProps) => {
   const [stage, setStage] = useState(QuizStage.QuizStart);
   const [answers, setAnswers] = useState<Answer[]>([]);
   const [seconds, setSeconds] = useState(0);
@@ -44,17 +45,16 @@ const QuizPage = ({ quiz, userContext }: QuizProps) => {
 
   const remainingAttempts = quiz.numberOfAttempts - userContext.attemptsTaken;
 
-  const shuffledQuestions = shuffle(quiz.questions);
-  const shuffledQuestionsAndAnswers = shuffledQuestions.map((question) => ({
-    ...question,
-    answers: shuffle(question.answers),
-  }));
-
   useEffect(() => {
     if (quiz.randomize) {
+      const shuffledQuestions = shuffle(quiz.questions);
+      const shuffledQuestionsAndAnswers = shuffledQuestions.map((question) => ({
+        ...question,
+        answers: shuffle(question.answers),
+      }));
       setQuestions(shuffledQuestionsAndAnswers);
     }
-  }, [quiz.randomize]);
+  }, [quiz.randomize, quiz.questions]);
 
   const sumOfUserPoints = useMemo(() => {
     const correctAnswers = questions.map((question) => {
@@ -149,6 +149,7 @@ const QuizPage = ({ quiz, userContext }: QuizProps) => {
             remainingAttempts={remainingAttempts}
             isRepeatable={quiz.isRepeatable}
             finalButton={quiz.finalButton}
+            onFinish={onFinish}
             onRepeatQuiz={onRepeatQuiz}
           />
         )}
