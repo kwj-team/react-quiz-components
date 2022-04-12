@@ -17,7 +17,7 @@ type QuizPageData = Pick<
   | "showPoints"
   | "randomize"
   | "questions"
-  | "isRepeatable"
+  // | "isRepeatable"
   | "numberOfAttempts"
   | "finalButton"
 >;
@@ -147,7 +147,7 @@ const QuizPage = ({ quiz, userContext, onFinish }: QuizProps) => {
         {stage === QuizStage.End && (
           <QuizEnd
             remainingAttempts={remainingAttempts}
-            isRepeatable={quiz.isRepeatable}
+            // isRepeatable={quiz.isRepeatable}
             finalButton={quiz.finalButton}
             onFinish={onFinish}
             onRepeatQuiz={onRepeatQuiz}

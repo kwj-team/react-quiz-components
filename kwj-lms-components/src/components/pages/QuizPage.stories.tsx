@@ -30,13 +30,12 @@ const quizPageProps: QuizData = {
   showCorrectAnswers: true,
   randomize: true,
   showPoints: true,
-  isRepeatable: true,
-  numberOfAttempts: 3,
+  // isRepeatable: true,
+  numberOfAttempts: 1,
   title: "Quiz about KPI",
   description:
     "The quiz deals with the most important performance indicators in the enterprise. Select correct answers and check the test result.",
   finalButton: {
-    url: "/",
     label: "Go to the ... ",
   },
   questions: [
@@ -123,6 +122,6 @@ export const DefaultQuizPage = Template.bind({});
 DefaultQuizPage.args = {
   quiz: quizPageProps,
   userContext: {
-    attemptsTaken: 3,
+    attemptsTaken: 0,
   },
 };

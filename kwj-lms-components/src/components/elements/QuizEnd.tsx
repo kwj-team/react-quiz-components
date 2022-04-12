@@ -10,13 +10,13 @@ interface QuizEndProps {
     //   url: string;
     label: string;
   };
-  isRepeatable?: boolean;
+  // isRepeatable?: boolean;
   remainingAttempts: number;
 }
 
 export const QuizEnd = ({
   quizEndingText,
-  isRepeatable = false,
+  // isRepeatable = false,
   onRepeatQuiz,
   onFinish,
   finalButton,
@@ -37,7 +37,7 @@ export const QuizEnd = ({
         {quizEndingText || t("quiz.quizEnd.invisibleResult")}
       </Typography>
       <Box gap={1} marginTop={3} display="flex" justifyContent="flex-end">
-        {isRepeatable && remainingAttempts > 0 ? (
+        {remainingAttempts > 0 ? (
           <Button variant="contained" size="large" onClick={onRepeatQuiz}>
             {t("quiz.button.label.repeat")}
           </Button>

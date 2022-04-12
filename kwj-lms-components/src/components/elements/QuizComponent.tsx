@@ -12,7 +12,7 @@ type QuizComponentData = Pick<
   | "showPoints"
   | "randomize"
   | "questions"
-  | "isRepeatable"
+  // | "isRepeatable"
   | "numberOfAttempts"
   | "finalButton"
 >;
