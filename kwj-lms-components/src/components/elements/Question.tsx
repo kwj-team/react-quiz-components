@@ -1,10 +1,7 @@
-import { Box, Typography } from "@mui/material";
+import { Box, CardMedia, Typography } from "@mui/material";
 
 interface QuestionProps {
-  question: Pick<
-    QuestionData,
-    "title" | "description" | "points" | "isAnswerRequired"
-  >;
+  question: QuestionData;
   index: number;
   userPoints?: number | null;
 }
@@ -30,6 +27,23 @@ const Question = ({ question, index, userPoints = null }: QuestionProps) => {
       <Typography marginBottom={3} variant="questionDescription">
         {question.description}
       </Typography>
+      {question.media && (
+        <CardMedia
+          sx={{ marginBottom: 3 }}
+          component={
+            (question.media.mime?.startsWith("image")
+              ? "img"
+              : question.media.mime?.startsWith("video")
+              ? "video"
+              : "audio") || "img"
+          }
+          height={question.media.height}
+          width={question.media.width}
+          autoPlay
+          controls
+          src={"http://localhost:1337" + question.media.url}
+        />
+      )}
     </Box>
   );
 };

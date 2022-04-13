@@ -46,6 +46,7 @@ type QuestionData = {
     url: string;
     height?: number;
     width?: number;
+    mime?: string;
   };
 };
 

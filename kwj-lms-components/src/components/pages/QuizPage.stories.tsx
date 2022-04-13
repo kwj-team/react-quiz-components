@@ -46,6 +46,11 @@ const quizPageProps: QuizData = {
         description: "Select all correct answers",
         points: 3,
         isAnswerRequired: true,
+        media: {
+          url: "/uploads/laptop_with_program_code_isometric_icon_software_development_programming_applications_dark_neon_39422_971_bdd99383e3.webp",
+          height: 300,
+          mime: "image/webp",
+        },
       },
       answers: [
         {
@@ -77,6 +82,11 @@ const quizPageProps: QuizData = {
         description: "Select the correct answer",
         points: 1,
         isAnswerRequired: true,
+        media: {
+          url: "/uploads/Hello_World_28320_c75dd54fb9.mp4",
+          height: 300,
+          mime: "video/mp4",
+        },
       },
       answers: [
         {

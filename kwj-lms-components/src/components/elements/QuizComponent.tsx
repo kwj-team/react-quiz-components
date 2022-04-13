@@ -63,14 +63,6 @@ const QuizComponent = ({
   const component =
     question && getComponent(question, answers[step], step, setAnswer);
 
-  // const randomQuestions = () => {
-  //   let allQuestions = quiz.questions;
-  //   for (let i = allQuestions.length - 1; i > 0; i--) {
-  //     const j = Math.floor(Math.random() * (i + 1));
-  //     [allQuestions[i], allQuestions[j]] = [allQuestions[j], allQuestions[i]];
-  //   }
-  // };
-
   return (
     <>
       {component && (
