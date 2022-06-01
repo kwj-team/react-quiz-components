@@ -32,9 +32,9 @@ const quizPageProps: QuizData = {
   showPoints: true,
   // isRepeatable: true,
   numberOfAttempts: 1,
-  title: "Quiz about KPI",
+  title: "Quiz about Strapi CMS",
   description:
-    "The quiz deals with the most important performance indicators in the enterprise. Select correct answers and check the test result.",
+    "Check how well you know the leading headless CMS - Strapi Ecosystem. Select correct answers and check the test result.",
   finalButton: {
     label: "Go to the ... ",
   },
@@ -42,62 +42,67 @@ const quizPageProps: QuizData = {
     {
       __typename: "ComponentElementsQuestionMultipleAnswer",
       question: {
-        title: "Is it true?",
+        title: "Select correct answers about Strapi CMS",
         description: "Select all correct answers",
         points: 3,
         isAnswerRequired: true,
         media: {
-          url: "/uploads/laptop_with_program_code_isometric_icon_software_development_programming_applications_dark_neon_39422_971_bdd99383e3.webp",
+          url: "/uploads//quizcomponent_85dfa22985.png",
           height: 300,
-          mime: "image/webp",
+          mime: "image/png",
         },
       },
       answers: [
         {
           key: "1",
           isCorrect: true,
-          text: "true answer",
+          text: "Strapi is the open-source headless CMS",
         },
         {
           key: "2",
           isCorrect: false,
-          text: "false answer",
+          text: "You can use only RESTful API to query your content",
         },
         {
           key: "3",
           isCorrect: false,
-          text: "false answer",
+          text: "Strapi isn't open-source",
         },
         {
           key: "4",
           isCorrect: true,
-          text: "true answer",
+          text: "Strapi is fully customizable",
+        },
+        {
+          key: "5",
+          isCorrect: true,
+          text: "You can use a standard RESTful API or GraphQL to query your content",
         },
       ],
     },
     {
       __typename: "ComponentElementsQuestionSingleAnswer",
       question: {
-        title: "Which sentence is true?",
+        title: "Can you add your own plugin to Strapi Market?",
         description: "Select the correct answer",
         points: 1,
         isAnswerRequired: true,
         media: {
-          url: "/uploads/Hello_World_28320_c75dd54fb9.mp4",
+          url: "/uploads/screencast_market_strapi_io_2022_05_31_19_18_57_f42a00af57.webm",
           height: 300,
-          mime: "video/mp4",
+          mime: "video/webm",
         },
       },
       answers: [
         {
           key: "5",
           isCorrect: true,
-          text: "true answer",
+          text: "Yes, I can",
         },
         {
           key: "6",
           isCorrect: false,
-          text: "false answer",
+          text: "No, I can't",
         },
       ],
     },
