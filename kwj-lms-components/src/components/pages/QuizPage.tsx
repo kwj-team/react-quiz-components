@@ -17,7 +17,7 @@ type QuizPageData = Pick<
   | "showPoints"
   | "randomize"
   | "questions"
-  // | "isRepeatable"
+  | "media"
   | "numberOfAttempts"
   | "finalButton"
 >;
@@ -107,6 +107,7 @@ const QuizPage = ({ quiz, userContext, onFinish }: QuizProps) => {
         <QuizStart
           title={quiz.title}
           description={quiz.description}
+          media={quiz.media}
           onNextClick={onNextStep}
         />
       )}

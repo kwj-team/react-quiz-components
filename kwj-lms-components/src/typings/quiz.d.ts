@@ -4,7 +4,12 @@ type QuizData = {
   showCorrectAnswers: boolean;
   showPoints: boolean;
   randomize: boolean;
-  // isRepeatable?: boolean;
+  media?: {
+    url: string;
+    height?: number;
+    width?: number;
+    mime?: string;
+  };
   numberOfAttempts: number;
   finalButton?: {
     label: string;

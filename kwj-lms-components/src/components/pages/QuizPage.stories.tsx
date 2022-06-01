@@ -30,11 +30,15 @@ const quizPageProps: QuizData = {
   showCorrectAnswers: true,
   randomize: true,
   showPoints: true,
-  // isRepeatable: true,
   numberOfAttempts: 1,
   title: "Quiz about Strapi CMS",
   description:
     "Check how well you know the leading headless CMS - Strapi Ecosystem. Select correct answers and check the test result.",
+  media: {
+    url: "/uploads/JPG_logo_purple_white_4724ea237e.jpg",
+    height: 500,
+    mime: "image/jpg",
+  },
   finalButton: {
     label: "Go to the ... ",
   },
@@ -48,7 +52,7 @@ const quizPageProps: QuizData = {
         isAnswerRequired: true,
         media: {
           url: "/uploads//quizcomponent_85dfa22985.png",
-          height: 300,
+          height: 400,
           mime: "image/png",
         },
       },
@@ -89,41 +93,61 @@ const quizPageProps: QuizData = {
         isAnswerRequired: true,
         media: {
           url: "/uploads/screencast_market_strapi_io_2022_05_31_19_18_57_f42a00af57.webm",
-          height: 300,
+          height: 400,
           mime: "video/webm",
         },
       },
       answers: [
         {
-          key: "5",
+          key: "6",
           isCorrect: true,
           text: "Yes, I can",
         },
         {
-          key: "6",
+          key: "7",
           isCorrect: false,
-          text: "No, I can't",
+          text: "No, I can not",
         },
       ],
     },
     {
       __typename: "ComponentElementsQuestionSingleAnswer",
       question: {
-        title: "Which sentence is true?",
-        description: "Select the correct answer",
+        title: "What modern technologies does the Strapi System work with?",
+        description: "Select all correct answer",
         points: 1,
         isAnswerRequired: true,
+        media: {
+          url: "/uploads/3180754_a3ad6b52b7.jpg",
+          height: 400,
+          mime: "image/jpg",
+        },
       },
       answers: [
         {
-          key: "7",
+          key: "8",
           isCorrect: true,
-          text: "true answer",
+          text: "React, Vue.js, Angular, Next.js, Gatsby, Svelte, Sapper, Hugo, Nuxt.js",
         },
         {
-          key: "8",
+          key: "9",
           isCorrect: false,
-          text: "false answer",
+          text: "Vue.js, Angular, Next.js",
+        },
+        {
+          key: "10",
+          isCorrect: false,
+          text: "Next.js, Gatsby, Svelte, Sapper, Hugo, Nuxt.js",
+        },
+        {
+          key: "11",
+          isCorrect: false,
+          text: "only Angular",
+        },
+        {
+          key: "12",
+          isCorrect: false,
+          text: "only React",
         },
       ],
     },

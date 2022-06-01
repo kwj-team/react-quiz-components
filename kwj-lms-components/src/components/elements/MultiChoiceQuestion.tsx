@@ -73,6 +73,7 @@ function CheckboxLabels({
 
         return (
           <FormControlLabel
+            key={answer.key}
             onChange={handleChange}
             checked={isUserSelected}
             control={<Checkbox color={color} value={answer.key} />}
