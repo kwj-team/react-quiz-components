@@ -21,7 +21,6 @@ type QuizData = {
 type QuestionComponentData = SingleChoiceQuestionData | MultiChoiceQuestionData;
 
 type SingleChoiceQuestionData = {
-  __typename: "ComponentElementsQuestionSingleAnswer";
   question: QuestionData;
 
   answers: {
@@ -29,10 +28,9 @@ type SingleChoiceQuestionData = {
     text: string;
     isCorrect: boolean;
   }[];
-};
+} & ({ __typename: "ComponentKwjComponentsSingleChoiceQuestion", __component?: never } | { __typename?: never, __component?: "kwj-components.single-choice-question" });
 
 type MultiChoiceQuestionData = {
-  __typename: "ComponentElementsQuestionMultipleAnswer";
   question: QuestionData;
 
   answers: {
@@ -40,7 +38,7 @@ type MultiChoiceQuestionData = {
     text: string;
     isCorrect: boolean;
   }[];
-};
+} & ({ __typename: "ComponentKwjComponentsMultiChoiceQuestion", __component?: never } | { __typename?: never, __component?: "kwj-components.multi-choice-question" });
 
 type QuestionData = {
   title: string;

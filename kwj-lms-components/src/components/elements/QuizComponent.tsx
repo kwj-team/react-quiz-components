@@ -107,8 +107,8 @@ function getComponent(
   index: number,
   setAnswer: (answer: Answer) => void
 ) {
-  switch (question.__typename) {
-    case "ComponentElementsQuestionMultipleAnswer":
+  switch (question.__component) {
+    case "kwj-components.multi-choice-question":
       return (
         <MultiChoiceQuestion
           index={index}
@@ -117,7 +117,28 @@ function getComponent(
           onChange={setAnswer}
         />
       );
-    case "ComponentElementsQuestionSingleAnswer":
+    case "kwj-components.single-choice-question":
+      return (
+        <SingleChoiceQuestion
+          index={index}
+          userAnswer={userAnswer && userAnswer.value}
+          question={question}
+          onChange={setAnswer}
+        />
+      );
+  }
+
+  switch (question.__typename) {
+    case "ComponentKwjComponentsMultiChoiceQuestion":
+      return (
+        <MultiChoiceQuestion
+          index={index}
+          userAnswer={userAnswer && userAnswer.value}
+          question={question}
+          onChange={setAnswer}
+        />
+      );
+    case "ComponentKwjComponentsSingleChoiceQuestion":
       return (
         <SingleChoiceQuestion
           index={index}
@@ -129,6 +150,7 @@ function getComponent(
     default:
       return null;
   }
+
 }
 
 export default QuizComponent;

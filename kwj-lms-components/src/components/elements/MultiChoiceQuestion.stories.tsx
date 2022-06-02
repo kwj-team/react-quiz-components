@@ -4,7 +4,7 @@ import MultiChoiceQuestion from "./MultiChoiceQuestion";
 export default { title: 'components/elements/multiple-question', component: MultiChoiceQuestion } as ComponentMeta<typeof MultiChoiceQuestion>
 
 const MultiChoiceQuestionProps = {
-    __typename: "ComponentElementsQuestionMultipleAnswer",
+    __typename: "ComponentKwjComponentsMultiChoiceQuestion",
     question: {
         title: "Jakie powinny być KPIs?",
         description: "To pytanie wielokrotnego wyboru. Może być więcej niż jedna prawidłowa odpowiedź.",

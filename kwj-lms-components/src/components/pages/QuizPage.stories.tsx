@@ -1,4 +1,6 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
+import { useEffect, useState } from "react";
+import { getQuiz } from "../../hooks/strapiApi";
 // import { useEffect } from "react";
 import QuizPage from "./QuizPage";
 // import { useTranslation } from 'react-i18next';
@@ -44,7 +46,7 @@ const quizPageProps: QuizData = {
   },
   questions: [
     {
-      __typename: "ComponentElementsQuestionMultipleAnswer",
+      __typename: "ComponentKwjComponentsMultiChoiceQuestion",
       question: {
         title: "Select correct answers about Strapi CMS",
         description: "Select all correct answers",
@@ -85,7 +87,7 @@ const quizPageProps: QuizData = {
       ],
     },
     {
-      __typename: "ComponentElementsQuestionSingleAnswer",
+      __typename: "ComponentKwjComponentsSingleChoiceQuestion",
       question: {
         title: "Can you add your own plugin to Strapi Market?",
         description: "Select the correct answer",
@@ -111,7 +113,7 @@ const quizPageProps: QuizData = {
       ],
     },
     {
-      __typename: "ComponentElementsQuestionSingleAnswer",
+      __typename: "ComponentKwjComponentsMultiChoiceQuestion",
       question: {
         title: "What modern technologies does the Strapi System work with?",
         description: "Select all correct answer",
@@ -164,3 +166,35 @@ DefaultQuizPage.args = {
     attemptsTaken: 0,
   },
 };
+
+export const QuizDataFromStrapi: ComponentStory<typeof QuizPage> = (args) => {
+  const [quiz, setQuiz] = useState<QuizData>()
+
+  useEffect(() => {
+    (async function () {
+      const quiz = await getQuiz(1)
+      setQuiz(quiz)
+    })()
+  }, [])
+
+  if (!quiz) {
+    return <div>Loading</div>
+  }
+
+  return (<div>
+    <Template {...args} quiz={quiz} />
+  </div>);
+};
+
+QuizDataFromStrapi.args = {
+  userContext: {
+    attemptsTaken: 0,
+  },
+};
+export const QuizDataFromStrapiWithSave = QuizDataFromStrapi.bind({})
+QuizDataFromStrapiWithSave.args = {
+  userContext: {
+    attemptsTaken: 0,
+  },
+}
+

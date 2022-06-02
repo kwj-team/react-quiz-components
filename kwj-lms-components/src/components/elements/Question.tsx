@@ -1,4 +1,5 @@
 import { Box, CardMedia, Typography } from "@mui/material";
+import { getStrapiMedia } from "../../utils/media";
 
 interface QuestionProps {
   question: QuestionData;
@@ -41,7 +42,7 @@ const Question = ({ question, index, userPoints = null }: QuestionProps) => {
           width={question.media.width}
           autoPlay
           controls
-          src={"http://localhost:1337" + question.media.url}
+          src={getStrapiMedia(question.media.url)}
         />
       )}
     </Box>

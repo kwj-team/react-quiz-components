@@ -5,20 +5,10 @@ import MultiChoiceQuestion from "./MultiChoiceQuestion";
 import SingleChoiceQuestion from "./SingleChoiceQuestion";
 import isEqual from "lodash.isequal";
 
-type QuizResultData = Pick<
-  QuizData,
-  | "title"
-  | "description"
-  | "showCorrectAnswers"
-  | "showPoints"
-  | "randomize"
-  | "questions"
->;
-
 interface QuizResultProps {
   onNextStep: () => void;
 
-  quiz: QuizResultData;
+  quiz: QuizData;
   answers: Answer[];
   quizResultTitle?: string;
   seconds: number;
@@ -87,8 +77,9 @@ function getComponent(
 
   console.log(userPoints);
 
-  switch (question.__typename) {
-    case "ComponentElementsQuestionMultipleAnswer":
+  
+  switch (question.__component) {
+    case "kwj-components.multi-choice-question":
       return (
         <Card sx={{ width: 800, margin: "0 auto" }}>
           <CardContent>
@@ -102,7 +93,38 @@ function getComponent(
           </CardContent>
         </Card>
       );
-    case "ComponentElementsQuestionSingleAnswer":
+    case "kwj-components.single-choice-question":
+      return (
+        <Card sx={{ width: 800, margin: "0 auto" }}>
+          <CardContent>
+            <SingleChoiceQuestion
+              userPoints={userPoints}
+              index={index}
+              showAnswers
+              userAnswer={userAnswer && userAnswer.value}
+              question={question}
+            />
+          </CardContent>
+        </Card>
+      );
+  }
+
+  switch (question.__typename) {
+    case "ComponentKwjComponentsMultiChoiceQuestion":
+      return (
+        <Card sx={{ width: 800, margin: "0 auto" }}>
+          <CardContent>
+            <MultiChoiceQuestion
+              userPoints={userPoints}
+              index={index}
+              showAnswers
+              userAnswer={userAnswer && userAnswer.value}
+              question={question}
+            />
+          </CardContent>
+        </Card>
+      );
+    case "ComponentKwjComponentsSingleChoiceQuestion":
       return (
         <Card sx={{ width: 800, margin: "0 auto" }}>
           <CardContent>

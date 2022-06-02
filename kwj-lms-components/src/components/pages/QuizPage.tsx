@@ -28,9 +28,10 @@ interface QuizProps {
     attemptsTaken: number;
   };
   onFinish: () => void;
+  onSaveResults?: (args: {answers: Answer[], questions: QuestionComponentData[], quiz: QuizData}) => void;
 }
 
-const QuizPage = ({ quiz, userContext, onFinish }: QuizProps) => {
+const QuizPage = ({ quiz, userContext, onFinish, onSaveResults }: QuizProps) => {
   const [stage, setStage] = useState(QuizStage.QuizStart);
   const [answers, setAnswers] = useState<Answer[]>([]);
   const [seconds, setSeconds] = useState(0);
@@ -90,6 +91,10 @@ const QuizPage = ({ quiz, userContext, onFinish }: QuizProps) => {
       setIsActive(false);
       setShowTime(false);
       setAnswers(answers || []);
+      if (onSaveResults) {
+        onSaveResults({ answers: answers || [], questions, quiz })
+      }
+
       if (quiz.showCorrectAnswers) {
         setStage(QuizStage.AnswersReview);
       } else {

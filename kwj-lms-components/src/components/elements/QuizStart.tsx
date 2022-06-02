@@ -1,4 +1,5 @@
 import { Box, Button, CardMedia, Stack, Typography } from "@mui/material";
+import { getStrapiMedia } from "../../utils/media";
 
 interface QuizStartProps {
   onNextClick: () => void;
@@ -44,7 +45,7 @@ const QuizStart = ({
             width={media.width}
             autoPlay
             controls
-            src={"http://localhost:1337" + media.url}
+            src={getStrapiMedia(media.url)}
           />
         </Box>
       )}

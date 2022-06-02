@@ -4,7 +4,7 @@ import SingleChoiceQuestion from "./SingleChoiceQuestion";
 export default { title: 'components/elements/single-question', component: SingleChoiceQuestion } as ComponentMeta<typeof SingleChoiceQuestion>
 
 const SingleChoiceQuestionProps = {
-    __typename: "ComponentElementsQuestionSingleAnswer",
+    __typename: "ComponentKwjComponentsSingleChoiceQuestion",
     question: {
         title: "Czy to jest prawda?",
         description: "Zaznacz prawda/fałsz ",
@@ -27,17 +27,17 @@ const SingleChoiceQuestionProps = {
 const Template: ComponentStory<typeof SingleChoiceQuestion> = (args) => <SingleChoiceQuestion {...args} />
 
 export const DefaultSingleChoiceQuestion = Template.bind({})
-DefaultSingleChoiceQuestion.args = { question: SingleChoiceQuestionProps, userAnswer: "" }
+DefaultSingleChoiceQuestion.args = { question: SingleChoiceQuestionProps, userAnswer: [""] }
 
 export const WrongAnswer = Template.bind({})
 WrongAnswer.args = {
     question: SingleChoiceQuestionProps,
-    userAnswer: "prawda",
+    userAnswer: ["prawda"],
     showAnswers: true
 }
 export const CorrectAnswer = Template.bind({})
 CorrectAnswer.args = {
     question: SingleChoiceQuestionProps,
-    userAnswer: "fałsz",
+    userAnswer: ["fałsz"],
     showAnswers: true
 }
