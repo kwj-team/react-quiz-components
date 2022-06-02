@@ -28,7 +28,7 @@ type SingleChoiceQuestionData = {
     text: string;
     isCorrect: boolean;
   }[];
-} & ({ __typename: "ComponentKwjComponentsSingleChoiceQuestion", __component?: never } | { __typename?: never, __component?: "kwj-components.single-choice-question" });
+} & ({ __typename: "ComponentKwjComponentsSingleChoiceQuestion", __component?: never } | { __typename?: never, __component: "kwj-components.single-choice-question" });
 
 type MultiChoiceQuestionData = {
   question: QuestionData;
@@ -38,7 +38,7 @@ type MultiChoiceQuestionData = {
     text: string;
     isCorrect: boolean;
   }[];
-} & ({ __typename: "ComponentKwjComponentsMultiChoiceQuestion", __component?: never } | { __typename?: never, __component?: "kwj-components.multi-choice-question" });
+} & ({ __typename: "ComponentKwjComponentsMultiChoiceQuestion", __component?: never } | { __typename?: never, __component: "kwj-components.multi-choice-question" });
 
 type QuestionData = {
   title: string;
@@ -55,7 +55,7 @@ type QuestionData = {
 
 interface Answer {
   value: any[];
-  isFilled: boolean;
+  isFilled?: boolean;
 }
 
 // type MediaData = {
