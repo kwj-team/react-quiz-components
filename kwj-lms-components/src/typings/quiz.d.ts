@@ -18,6 +18,26 @@ type QuizData = {
   questions: QuestionComponentData[];
 };
 
+type Result = {
+  quiz: QuizData;
+  answers: Answer[];
+  quizResultTitle?: string;
+  seconds: number;
+  sumOfUserPoints: number;
+  sumOfPoints: number;
+  questions: QuizData["questions"];
+}
+
+type StrapiQuizResult = {
+  quiz: number;
+  points: number;
+  percentScore: number;
+  totalPoints: number;
+  attempts: number;
+  answers: Answer[];
+  questions: QuestionComponentData[];
+}
+
 type QuestionComponentData = SingleChoiceQuestionData | MultiChoiceQuestionData;
 
 type SingleChoiceQuestionData = {

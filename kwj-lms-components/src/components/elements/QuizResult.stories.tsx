@@ -77,5 +77,5 @@ const Template: ComponentStory<typeof QuizResult> = (args) => {
 
 const defaultAnswers = [{ value: ["random1", "random2"] }, { value: ["random3", "random4"] }];
 export const DefaultQuizResult = Template.bind({})
-DefaultQuizResult.args = { quiz: quizData, answers: defaultAnswers }
+DefaultQuizResult.args = { quiz: quizData, answers: defaultAnswers, questions: quizData.questions, seconds: 10, sumOfPoints: 10, sumOfUserPoints: 1, quizResultTitle: "Test" }
 

@@ -23,31 +23,19 @@ type StrapiResponse<T> = {
 export function getQuiz(quizId: number): Promise<QuizData> {
     return fetch(`${strapiApi.strapiAddress}/v1/quizzes/${quizId}?populate=questions,questions.answers,questions.question`, {
         method: "GET"
-    }).then((res) => res.json()).then((response : StrapiResponse<QuizData>) => ({
+    }).then((res) => res.json()).then((response: StrapiResponse<QuizData>) => ({
         ...response.data.attributes,
         id: response.data.id
     }))
 }
 
 
-type Result = {
-    quiz: QuizData;
-    answers: Answer[];
-    quizResultTitle?: string;
-    seconds: number;
-    sumOfUserPoints: number;
-    sumOfPoints: number;
-    questions: QuizData["questions"];
-}
 
-type StoreResult = {
-
-}
-
-function storeResults(result: Result): Promise<StoreResult> {
-    return fetch(`${strapiApi.strapiAddress}/api/quiz-results`, {
+function storeResults(result: StrapiQuizResult): Promise<StrapiResponse<StrapiQuizResult>> {
+    return fetch(`${strapiApi.strapiAddress}/v1/quiz-results`, {
         method: "POST",
-        body: JSON.stringify(result),
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ data: result }),
     }).then((res) => res.json())
 }
 

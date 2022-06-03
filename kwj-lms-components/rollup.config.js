@@ -19,6 +19,11 @@ export default {
       format: "esm",
       sourcemap: true,
     },
+    {
+      file: packageJson.browser,
+      format: "umd",
+      name: 'lms-components',
+    }
   ],
   plugins: [
     peerDepsExternal(),
