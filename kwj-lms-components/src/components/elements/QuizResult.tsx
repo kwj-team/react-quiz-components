@@ -93,7 +93,7 @@ function getComponent(
           </CardContent>
         </Card>
       );
-    case "kwj-quiz-components.single-choice-question":
+    case "kwj-quiz-components.single-choice":
       return (
         <Card sx={{ width: 800, margin: "0 auto" }}>
           <CardContent>

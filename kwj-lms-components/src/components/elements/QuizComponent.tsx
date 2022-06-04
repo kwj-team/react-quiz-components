@@ -117,7 +117,7 @@ function getComponent(
           onChange={setAnswer}
         />
       );
-    case "kwj-quiz-components.single-choice-question":
+    case "kwj-quiz-components.single-choice":
       return (
         <SingleChoiceQuestion
           index={index}

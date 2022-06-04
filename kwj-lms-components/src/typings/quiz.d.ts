@@ -48,7 +48,7 @@ type SingleChoiceQuestionData = {
     text: string;
     isCorrect: boolean;
   }[];
-} & ({ __typename: "ComponentKwjQuizComponentsSingleChoice", __component?: never } | { __typename?: never, __component: "kwj-quiz-components.single-choice-question" });
+} & ({ __typename: "ComponentKwjQuizComponentsSingleChoice", __component?: never } | { __typename?: never, __component: "kwj-quiz-components.single-choice" });
 
 type MultiChoiceQuestionData = {
   question: QuestionData;

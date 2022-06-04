@@ -11,7 +11,7 @@ const quizData: QuizData = {
     title: "Quiz sprawdzający wiedzę o KPI",
     description: "Quiz dotyczy najważniejszych wskaźników efektywności w przedsiębiorstwie. Zaznacz prawidłowe odpowiedzi i sprawdź wynik testu.",
     questions: [{
-        __typename: "ComponentKwjComponentsMultiChoiceQuestion",
+        __typename: "ComponentKwjQuizComponentsMultiChoice",
         question: {
             title: "Jakie powinny być KPIs?",
             description: "To pytanie wielokrotnego wyboru. Może być więcej niż jedna prawidłowa odpowiedź.",
@@ -40,7 +40,7 @@ const quizData: QuizData = {
             }
         ]
     }, {
-        __typename: "ComponentKwjComponentsSingleChoiceQuestion",
+        __typename: "ComponentKwjQuizComponentsSingleChoice",
         question: {
             title: "Jakie powinny być KPIs?",
             description: "To pytanie wielokrotnego wyboru. Może być więcej niż jedna prawidłowa odpowiedź.",
