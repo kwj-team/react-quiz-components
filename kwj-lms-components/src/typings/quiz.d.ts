@@ -18,6 +18,26 @@ type QuizData = {
   questions: QuestionComponentData[];
 };
 
+type Result = {
+  quiz: QuizData;
+  answers: Answer[];
+  quizResultTitle?: string;
+  seconds: number;
+  sumOfUserPoints: number;
+  sumOfPoints: number;
+  questions: QuizData["questions"];
+}
+
+type StrapiQuizResult = {
+  quiz: number;
+  points: number;
+  percentScore: number;
+  totalPoints: number;
+  attempts: number;
+  answers: Answer[];
+  questions: QuestionComponentData[];
+}
+
 type QuestionComponentData = SingleChoiceQuestionData | MultiChoiceQuestionData;
 
 type SingleChoiceQuestionData = {
@@ -28,7 +48,7 @@ type SingleChoiceQuestionData = {
     text: string;
     isCorrect: boolean;
   }[];
-} & ({ __typename: "ComponentKwjQuizComponentsSingleChoice", __component?: never } | { __typename?: never, __component?: "kwj-quiz-components.single-choice-question" });
+} & ({ __typename: "ComponentKwjQuizComponentsSingleChoice", __component?: never } | { __typename?: never, __component: "kwj-quiz-components.single-choice-question" });
 
 type MultiChoiceQuestionData = {
   question: QuestionData;
@@ -38,7 +58,7 @@ type MultiChoiceQuestionData = {
     text: string;
     isCorrect: boolean;
   }[];
-} & ({ __typename: "ComponentKwjQuizComponentsMultiChoice", __component?: never } | { __typename?: never, __component?: "kwj-quiz-components.multi-choice" });
+} & ({ __typename: "ComponentKwjQuizComponentsMultiChoice", __component?: never } | { __typename?: never, __component: "kwj-quiz-components.multi-choice" });
 
 type QuestionData = {
   title: string;
@@ -55,7 +75,7 @@ type QuestionData = {
 
 interface Answer {
   value: any[];
-  isFilled: boolean;
+  isFilled?: boolean;
 }
 
 // type MediaData = {

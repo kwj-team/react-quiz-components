@@ -6,11 +6,12 @@ export default {
     component: QuizResult
 } as ComponentMeta<typeof QuizResult>
 
-const quizData = {
+const quizData: QuizData = {
+    showCorrectAnswers: true, showPoints: true, randomize: true, numberOfAttempts: 1,
     title: "Quiz sprawdzający wiedzę o KPI",
     description: "Quiz dotyczy najważniejszych wskaźników efektywności w przedsiębiorstwie. Zaznacz prawidłowe odpowiedzi i sprawdź wynik testu.",
     questions: [{
-        __typename: "ComponentElementsQuestionMultipleAnswer",
+        __typename: "ComponentKwjComponentsMultiChoiceQuestion",
         question: {
             title: "Jakie powinny być KPIs?",
             description: "To pytanie wielokrotnego wyboru. Może być więcej niż jedna prawidłowa odpowiedź.",
@@ -39,7 +40,7 @@ const quizData = {
             }
         ]
     }, {
-        __typename: "ComponentElementsQuestionMultipleAnswer",
+        __typename: "ComponentKwjComponentsSingleChoiceQuestion",
         question: {
             title: "Jakie powinny być KPIs?",
             description: "To pytanie wielokrotnego wyboru. Może być więcej niż jedna prawidłowa odpowiedź.",
@@ -76,5 +77,5 @@ const Template: ComponentStory<typeof QuizResult> = (args) => {
 
 const defaultAnswers = [{ value: ["random1", "random2"] }, { value: ["random3", "random4"] }];
 export const DefaultQuizResult = Template.bind({})
-DefaultQuizResult.args = { quiz: quizData, answers: defaultAnswers }
+DefaultQuizResult.args = { quiz: quizData, answers: defaultAnswers, questions: quizData.questions, seconds: 10, sumOfPoints: 10, sumOfUserPoints: 1, quizResultTitle: "Test" }
 

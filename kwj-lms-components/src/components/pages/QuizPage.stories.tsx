@@ -155,6 +155,7 @@ const quizPageProps: QuizData = {
     },
   ],
 };
+
 const Template: ComponentStory<typeof QuizPage> = (args) => (
   <QuizPage {...args} />
 );
