@@ -4,7 +4,7 @@ import SingleChoiceQuestion from "./SingleChoiceQuestion";
 export default { title: 'components/elements/single-question', component: SingleChoiceQuestion } as ComponentMeta<typeof SingleChoiceQuestion>
 
 const SingleChoiceQuestionProps = {
-    __typename: "ComponentKwjComponentsSingleChoiceQuestion",
+    __typename: "ComponentKwjQuizComponentsSingleChoice",
     question: {
         title: "Czy to jest prawda?",
         description: "Zaznacz prawda/fałsz ",

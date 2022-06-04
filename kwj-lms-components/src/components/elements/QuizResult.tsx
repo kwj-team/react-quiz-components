@@ -79,7 +79,7 @@ function getComponent(
 
   
   switch (question.__component) {
-    case "kwj-components.multi-choice-question":
+    case "kwj-quiz-components.multi-choice":
       return (
         <Card sx={{ width: 800, margin: "0 auto" }}>
           <CardContent>
@@ -93,7 +93,7 @@ function getComponent(
           </CardContent>
         </Card>
       );
-    case "kwj-components.single-choice-question":
+    case "kwj-quiz-components.single-choice-question":
       return (
         <Card sx={{ width: 800, margin: "0 auto" }}>
           <CardContent>
@@ -110,7 +110,7 @@ function getComponent(
   }
 
   switch (question.__typename) {
-    case "ComponentKwjComponentsMultiChoiceQuestion":
+    case "ComponentKwjQuizComponentsMultiChoice":
       return (
         <Card sx={{ width: 800, margin: "0 auto" }}>
           <CardContent>
@@ -124,7 +124,7 @@ function getComponent(
           </CardContent>
         </Card>
       );
-    case "ComponentKwjComponentsSingleChoiceQuestion":
+    case "ComponentKwjQuizComponentsSingleChoice":
       return (
         <Card sx={{ width: 800, margin: "0 auto" }}>
           <CardContent>

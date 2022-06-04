@@ -46,7 +46,7 @@ const quizPageProps: QuizData = {
   },
   questions: [
     {
-      __typename: "ComponentKwjComponentsMultiChoiceQuestion",
+      __typename: "ComponentKwjQuizComponentsMultiChoice",
       question: {
         title: "Select correct answers about Strapi CMS",
         description: "Select all correct answers",
@@ -87,7 +87,7 @@ const quizPageProps: QuizData = {
       ],
     },
     {
-      __typename: "ComponentKwjComponentsSingleChoiceQuestion",
+      __typename: "ComponentKwjQuizComponentsSingleChoice",
       question: {
         title: "Can you add your own plugin to Strapi Market?",
         description: "Select the correct answer",
@@ -113,7 +113,7 @@ const quizPageProps: QuizData = {
       ],
     },
     {
-      __typename: "ComponentKwjComponentsMultiChoiceQuestion",
+      __typename: "ComponentKwjQuizComponentsMultiChoice",
       question: {
         title: "What modern technologies does the Strapi System work with?",
         description: "Select all correct answer",
@@ -171,18 +171,17 @@ export const QuizDataFromStrapi: ComponentStory<typeof QuizPage> = (args) => {
   const [quiz, setQuiz] = useState<QuizData>()
 
   useEffect(() => {
-    (async function () {
+    const fetchQuiz = (async function () {
       const quiz = await getQuiz(1)
       setQuiz(quiz)
-    })()
+    })
+
+    fetchQuiz()
   }, [])
 
-  if (!quiz) {
-    return <div>Loading</div>
-  }
-
   return (<div>
-    <Template {...args} quiz={quiz} />
+    {!quiz && "Loading"}
+    {quiz && <Template {...args} quiz={quiz} />}
   </div>);
 };
 

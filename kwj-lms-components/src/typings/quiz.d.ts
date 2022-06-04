@@ -28,7 +28,7 @@ type SingleChoiceQuestionData = {
     text: string;
     isCorrect: boolean;
   }[];
-} & ({ __typename: "ComponentKwjComponentsSingleChoiceQuestion", __component?: never } | { __typename?: never, __component?: "kwj-components.single-choice-question" });
+} & ({ __typename: "ComponentKwjQuizComponentsSingleChoice", __component?: never } | { __typename?: never, __component?: "kwj-quiz-components.single-choice-question" });
 
 type MultiChoiceQuestionData = {
   question: QuestionData;
@@ -38,7 +38,7 @@ type MultiChoiceQuestionData = {
     text: string;
     isCorrect: boolean;
   }[];
-} & ({ __typename: "ComponentKwjComponentsMultiChoiceQuestion", __component?: never } | { __typename?: never, __component?: "kwj-components.multi-choice-question" });
+} & ({ __typename: "ComponentKwjQuizComponentsMultiChoice", __component?: never } | { __typename?: never, __component?: "kwj-quiz-components.multi-choice" });
 
 type QuestionData = {
   title: string;
