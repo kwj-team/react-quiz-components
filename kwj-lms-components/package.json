@@ -1,5 +1,5 @@
 {
-  "name": "@kwj-team/quiz-components",
+  "name": "@kwj-team/react-quiz-components",
   "version": "0.1.0",
 
   "main": "lib/index.cjs.js",
