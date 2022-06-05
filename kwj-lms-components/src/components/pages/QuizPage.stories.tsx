@@ -28,7 +28,7 @@ export default {
   ],
 } as ComponentMeta<typeof QuizPage>;
 
-const quizPageProps: QuizData = {
+const quizData: QuizData = {
   showCorrectAnswers: true,
   randomize: true,
   showPoints: true,
@@ -162,7 +162,7 @@ const Template: ComponentStory<typeof QuizPage> = (args) => (
 
 export const DefaultQuizPage = Template.bind({});
 DefaultQuizPage.args = {
-  quiz: quizPageProps,
+  quiz: quizData,
   userContext: {
     attemptsTaken: 0,
   },
