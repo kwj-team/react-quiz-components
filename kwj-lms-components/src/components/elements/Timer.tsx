@@ -1,5 +1,5 @@
 import { Typography } from '@mui/material';
-import { Dispatch, SetStateAction, useEffect } from 'react';
+import React, { Dispatch, SetStateAction, useEffect } from 'react';
 
 interface TimerProps {
   isActive: boolean

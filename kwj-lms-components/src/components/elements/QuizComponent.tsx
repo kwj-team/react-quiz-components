@@ -1,8 +1,8 @@
+import React, { useState } from "react";
 import { Box, Alert, Stack, Card, CardContent, Button } from "@mui/material";
 import MultiChoiceQuestion from "./MultiChoiceQuestion";
 import SingleChoiceQuestion from "./SingleChoiceQuestion";
 import { useTranslation } from "react-i18next";
-import { useState } from "react";
 
 type QuizComponentData = Pick<
   QuizData,

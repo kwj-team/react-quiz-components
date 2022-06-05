@@ -4,6 +4,7 @@ import { formatSeconds } from "./Timer";
 import MultiChoiceQuestion from "./MultiChoiceQuestion";
 import SingleChoiceQuestion from "./SingleChoiceQuestion";
 import isEqual from "lodash.isequal";
+import React from 'react'
 
 interface QuizResultProps {
   onNextStep: () => void;

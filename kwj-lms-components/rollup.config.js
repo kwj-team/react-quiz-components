@@ -12,17 +12,12 @@ export default {
     {
       file: packageJson.main,
       format: "cjs",
-      sourcemap: true,
+      sourcemap: true
     },
     {
       file: packageJson.module,
       format: "esm",
-      sourcemap: true,
-    },
-    {
-      file: packageJson.browser,
-      format: "umd",
-      name: 'lms-components',
+      sourcemap: true
     }
   ],
   plugins: [
@@ -31,7 +26,7 @@ export default {
     commonjs(),
     typescript({ useTsconfigDeclarationDir: true }),
     postcss({
-      extensions: [".css"],
-    }),
-  ],
+        extensions: ['.css']
+    })
+  ]
 };

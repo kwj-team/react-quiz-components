@@ -1,6 +1,6 @@
-export function getStrapiMedia(url) {
+export function getStrapiMedia(url: string) {
   if (url == null) {
-    return null
+    return;
   }
 
   // Return the full URL if the media is hosted on an external provider
@@ -9,7 +9,6 @@ export function getStrapiMedia(url) {
   }
 
   // Otherwise prepend the URL path with the Strapi URL
-  return `${
-    process.env.STRAPI_API_URL || "http://localhost:1337"
-  }${url}`
+  return `${process.env.STRAPI_API_URL || "http://localhost:1337"
+    }${url}`
 }

@@ -1,3 +1,4 @@
+import React from 'react'
 import { Box, CardMedia, Typography } from "@mui/material";
 import { getStrapiMedia } from "../../utils/media";
 
@@ -35,8 +36,8 @@ const Question = ({ question, index, userPoints = null }: QuestionProps) => {
             (question.media.mime?.startsWith("image")
               ? "img"
               : question.media.mime?.startsWith("video")
-              ? "video"
-              : "audio") || "img"
+                ? "video"
+                : "audio") || "img"
           }
           height={question.media.height}
           width={question.media.width}

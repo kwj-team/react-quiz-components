@@ -1,5 +1,5 @@
 import { Box } from "@mui/material";
-import { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { QuizStage } from "../elements/Quiz.types";
 import { QuizEnd } from "../elements/QuizEnd";
 import { QuizResult } from "../elements/QuizResult";
@@ -28,7 +28,7 @@ interface QuizProps {
     attemptsTaken: number;
   };
   onFinish: () => void;
-  onSaveResults?: (args: {answers: Answer[], questions: QuestionComponentData[], quiz: QuizData}) => void;
+  onSaveResults?: (args: { answers: Answer[], questions: QuestionComponentData[], quiz: QuizData }) => void;
 }
 
 const QuizPage = ({ quiz, userContext, onFinish, onSaveResults }: QuizProps) => {

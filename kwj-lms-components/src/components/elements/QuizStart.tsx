@@ -1,5 +1,6 @@
 import { Box, Button, CardMedia, Stack, Typography } from "@mui/material";
 import { getStrapiMedia } from "../../utils/media";
+import React from 'react'
 
 interface QuizStartProps {
   onNextClick: () => void;

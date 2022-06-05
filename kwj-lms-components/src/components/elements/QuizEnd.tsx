@@ -1,5 +1,6 @@
 import { Box, Button, Typography, Tooltip } from "@mui/material";
 import { useTranslation } from "react-i18next";
+import React from 'react'
 
 interface QuizEndProps {
   onRepeatQuiz: () => void;
