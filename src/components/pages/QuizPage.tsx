@@ -6,8 +6,8 @@ import { QuizResult } from "../elements/QuizResult";
 import { Timer } from "../elements/Timer";
 import QuizComponent from "../elements/QuizComponent";
 import QuizStart from "../elements/QuizStart";
-import isEqual from "lodash.isequal";
-import { shuffle } from "lodash";
+import isEqual from "lodash/isEqual";
+import shuffle from "lodash/shuffle";
 
 type QuizPageData = Pick<
   QuizData,
@@ -22,7 +22,7 @@ type QuizPageData = Pick<
   | "finalButton"
 >;
 
-interface QuizProps {
+export interface QuizProps {
   quiz: QuizPageData;
   userContext: {
     attemptsTaken: number;

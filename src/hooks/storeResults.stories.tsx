@@ -1,7 +1,7 @@
 import { Story } from "@storybook/api";
 import { useState } from "react";
 import { QuizResult } from "../components/elements/QuizResult";
-import { strapiApi } from "./strapiApi";
+import { strapiApi } from "../utils/strapiApi";
 
 const quizData: QuizData = {
   showCorrectAnswers: true,

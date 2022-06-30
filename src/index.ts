@@ -1,3 +1,4 @@
+import { I18nContext, I18nextProvider } from "react-i18next";
 import MultiChoiceQuestion from "./components/elements/MultiChoiceQuestion";
 import SingleChoiceQuestion from "./components/elements/SingleChoiceQuestion";
 import Question from "./components/elements/Question";
@@ -17,3 +18,7 @@ export { Timer };
 export { QuizComponent };
 export { QuizStart };
 export { QuizPage };
+export { I18nContext, I18nextProvider }
+
+export { translations } from './utils/translations';
+export { strapiApi } from './utils/strapiApi';

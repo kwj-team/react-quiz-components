@@ -1,6 +1,6 @@
 import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { useEffect, useState } from "react";
-import { getQuiz } from "../../hooks/strapiApi";
+import { getQuiz } from "../../utils/strapiApi";
 // import { useEffect } from "react";
 import QuizPage from "./QuizPage";
 // import { useTranslation } from 'react-i18next';
